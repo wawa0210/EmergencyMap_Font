@@ -234,7 +234,7 @@
 
 
     //地图描绘点
-    var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
+    var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30),closeWhenClickMap:true});
 
     GetCompanyInfo(function(result){
          if(result.code==0){
@@ -258,12 +258,17 @@
 
                 marker.content = info.join("<br>");
                 marker.on('mouseover', markerClick);
+                marker.on('mouseout', markerOutClick);
                 marker.emit('mouseover', {target: marker});
             }
             function markerClick(e) {
                 infoWindow.setContent(e.target.content);
                 infoWindow.open(map, e.target.getPosition());
             }
+             function markerOutClick(e) {
+               infoWindow.close();
+            }
+            infoWindow.close();
             map.setFitView();
         }
     })
