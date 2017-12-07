@@ -43,7 +43,7 @@
                             </ul>
                         </div>
                         <div class="logo-element">
-                            IN+
+                            风控
                         </div>
                     </li>
                     <li class="active">
@@ -59,38 +59,30 @@
         </nav>
 
         <div id="page-wrapper" class="gray-bg dashbard-1">
-        <div class="row border-bottom">
-        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" action="search_results.html">
-              <!--   <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
-                </div> -->
-            </form>
-        </div>
-            <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <span class="m-r-sm text-muted welcome-message">齐齐哈尔市安全生产应急救援平台风险管控系统</span>
-                </li>
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-sign-out"></i> 退出系統
-                    </a>
-                </li>
-            </ul>
-
-        </nav>
-        </div>
-                <div class="row  border-bottom white-bg dashboard-header">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        <form role="search" class="navbar-form-custom" action="search_results.html">
+                        </form>
+                    </div>
+                        <ul class="nav navbar-top-links navbar-right">
+                            <li>
+                                <span class="m-r-sm text-muted welcome-message">齐齐哈尔市安全生产应急救援平台风险管控系统</span>
+                            </li>
+                            <li>
+                                <a href="login.html">
+                                    <i class="fa fa-sign-out"></i> 退出系統
+                                </a>
+                            </li>
+                        </ul>
+                </nav>
+            </div>
+            <div class="gray-bg">
+                <div class="wrapper wrapper-content" id="div_content" style="height: 800px;">
                     hello the world!
                 </div>
-        <div class="row">
-           
-        </div>
-
-        </div>
-
+            </div>
         </div>
     </div>
 
@@ -99,7 +91,6 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
     <!-- Peity -->
     <script src="js/plugins/peity/jquery.peity.min.js"></script>
     <script src="js/demo/peity-demo.js"></script>
@@ -122,9 +113,12 @@
     <script src="js/common.js"></script>
     <script src="js/jquery.cookie.js"></script>
 
+    <!-- 高德地图相关 -->
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.2&key=682be051dc164d7c0f0a5b008ee726f3&plugin=AMap.PlaceSearch,AMap.AdvancedInfoWindow"></script> 
+    <script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+
     <script>
         $(document).ready(function() {
-
             var userId =  $.cookie('userid');
             if(userId==null){
                 window.location.href="login.html";
@@ -145,10 +139,7 @@
                             }, 1300);
                 }
             });
-
-           
-
-
+        
             function GetManagerInfo(userid,callback){
                 var uri = '/accounts/'+userid;
                 doGet(uri,function(res){
@@ -158,6 +149,147 @@
                 });
             }
         });
+
+
+/***************************************
+由于Chrome、IOS10等已不再支持非安全域的浏览器定位请求，为保证定位成功率和精度，请尽快升级您的站点到HTTPS。
+***************************************/
+    //创建地图
+    var map = new AMap.Map('div_content', {
+        zoom: 8,
+        center: [123.951848,47.34236]
+    });
+    map.setFeatures(["bg","building","road"]);//单一种类要素显示
+
+    //just some colors
+    var colors = [
+        "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00",
+        "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707",
+        "#651067", "#329262", "#5574a6", "#3b3eac"
+    ];
+
+    //加载DistrictExplorer，loadUI的路径参数为模块名中 'ui/' 之后的部分 
+    AMapUI.loadUI(['geo/DistrictExplorer'], function(DistrictExplorer) {
+       //启动页面
+       initPage(DistrictExplorer);
+    });
+
+    function initPage(DistrictExplorer) {
+       //创建一个实例
+       var districtExplorer = new DistrictExplorer({
+          map: map //关联的地图实例
+       });
+
+       var adcode = 230200; //齐齐哈尔的区划编码
+
+       districtExplorer.loadAreaNode(adcode, function(error, areaNode) {
+
+          if (error) {
+             console.error(error);
+             return;
+          }
+
+          //绘制载入的区划节点
+          renderAreaNode(districtExplorer, areaNode);
+       });
+    }
+
+    function renderAreaNode(districtExplorer, areaNode) {
+
+       //清除已有的绘制内容
+       districtExplorer.clearFeaturePolygons();
+
+       //just some colors
+       var colors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00"];
+
+       //绘制子级区划
+       districtExplorer.renderSubFeatures(areaNode, function(feature, i) {
+
+          var fillColor = colors[i % colors.length];
+          var strokeColor = colors[colors.length - 1 - i % colors.length];
+
+          return {
+             cursor: 'default',
+             bubble: true,
+             strokeColor: strokeColor, //线颜色
+             strokeOpacity: 1, //线透明度
+             strokeWeight: 1, //线宽
+             fillColor: fillColor, //填充色
+             fillOpacity: 0.35, //填充透明度
+          };
+       });
+
+       //绘制父级区划，仅用黑色描边
+       districtExplorer.renderParentFeature(areaNode, {
+          cursor: 'default',
+          bubble: true,
+          strokeColor: 'black', //线颜色
+          fillColor: null,
+          strokeWeight: 3, //线宽
+       });
+
+       //更新地图视野以适合区划面
+       map.setFitView(districtExplorer.getAllFeaturePolygons());
+    }
+
+
+    //地图描绘点
+    var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
+
+    GetCompanyInfo(function(result){
+         if(result.code==0){
+            // //随机创建一批点
+            // var data = createPoints(map.getCenter(), 100);
+            for (var i = 0, marker; i < result.data.length; i++) {
+                var companyInfo = result.data[i];
+
+                var marker = new AMap.Marker({
+                    position: [companyInfo.longitude,companyInfo.latitude],
+                    map: map
+                });
+                //构建信息窗体中显示的内容
+               var info = [];
+               info.push("<div style=padding:0px 0px  4px><b>"+ companyInfo.companyName+"</b>");
+               info.push("行政区:"+companyInfo.city+";"+companyInfo.companyDetail);
+               info.push("单位性质:"+companyInfo.city);
+               info.push("安全风险等级:"+companyInfo.city);
+               info.push("负责人:"+companyInfo.city);
+               info.push("联系电话:"+companyInfo.city);
+
+                marker.content = info.join("<br>");
+                marker.on('mouseover', markerClick);
+                marker.emit('mouseover', {target: marker});
+            }
+            function markerClick(e) {
+                infoWindow.setContent(e.target.content);
+                infoWindow.open(map, e.target.getPosition());
+            }
+            map.setFitView();
+        }
+    })
+
+    // //仅作示意
+    // function createPoints(center, num) {
+    //     var data = [];
+    //     for (var i = 0, len = num; i < len; i++) {
+    //         data.push({
+    //             position: [
+    //                 center.getLng() + (Math.random() > 0.8 ? 0.6 : Math.random()) * Math.random(),
+    //                 center.getLat() + (Math.random() > 0.8 ? 0.6 : Math.random()) * Math.random()
+    //             ]
+    //         });
+    //     }
+    //     return data;
+    // }
+
+   function GetCompanyInfo(callback){
+        var uri = '/companies';
+        doGet(uri,function(res){
+                 if (callback) {
+                        callback(res);
+                    }
+        });
+    }
     </script>
 </body>
 </html>
