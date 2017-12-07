@@ -49,11 +49,11 @@
                          doPost(uri, data, function (res) {
                               if(res!=null && res.code==0){
                                 localStorage.setItem('userinfo', res.data.userInfo);
-                                localStorage.setItem('token', res.data.token);
                                 localStorage.setItem('userid', res.data.userInfo.id);
                                 localStorage.setItem('userinfo', JSON.stringify(res.data.userInfo));
 
                                 $.cookie('token', res.data.token);
+                                $.cookie('userid', res.data.userInfo.id);
                                 window.location.href="index.html";  
                               }
                               else{

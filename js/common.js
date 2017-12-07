@@ -31,7 +31,7 @@ function doRequest(apiHost, method, data, callback, contentType, showtips) {
         type: method,
         url: apiHost,
         headers: {
-            token: WebApiToken,
+            token: decodeURIComponent(WebApiToken),
             "request-id": guid() + new Date().getTime()
         },
         data: data,
