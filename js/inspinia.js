@@ -92,10 +92,10 @@ $(document).ready(function () {
 
     // Append config box / Only for demo purpose
     // Uncomment on server mode to enable XHR calls
-    $.get("skin-config.html", function (data) {
-        if (!$('body').hasClass('no-skin-config'))
-            $('body').append(data);
-    });
+    // $.get("skin-config.html", function (data) {
+    //     if (!$('body').hasClass('no-skin-config'))
+    //         $('body').append(data);
+    // });
 
     // Minimalize menu
     $('.navbar-minimalize').click(function () {
@@ -258,13 +258,13 @@ function SmoothlyMenu() {
         // For smoothly turn on menu
         setTimeout(
             function () {
-                $('#side-menu').fadeIn(500);
+                $('#side-menu').fadeIn(200);
             }, 100);
     } else if ($('body').hasClass('fixed-sidebar')) {
         $('#side-menu').hide();
         setTimeout(
             function () {
-                $('#side-menu').fadeIn(500);
+                $('#side-menu').fadeIn(200);
             }, 300);
     } else {
         // Remove all inline style from jquery fadeIn function to reset menu state

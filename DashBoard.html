@@ -145,9 +145,7 @@
   <script src="js/plugins/artdialog/jquery.artDialog.js?skin=brief"></script>
   <script src="js/plugins/artdialog/plugins/iframeTools.js"></script>
 
-
-
-    <script>
+  <script>
 
 	/***************************************
 	由于Chrome、IOS10等已不再支持非安全域的浏览器定位请求，为保证定位成功率和精度，请尽快升级您的站点到HTTPS。
@@ -347,7 +345,21 @@
 
     //企业选中事件
    function CompanySelected(obj){
-     $.dialog.open("CompanyShowDetail.html", { title: '进价为空商品列表', lock: true, opacity: 0.5, width: 670 });
+          $(".theme-config-box").removeClass("show");
+          $("body",parent.document).toggleClass("mini-navbar");
+          window.parent.SmoothlyMenu()
+         $.dialog.open("CompanyShowDetail.html", 
+              {
+                 title: '进价为空商品列表', 
+                 lock: true, 
+                 opacity: 0.5, 
+                 width: 1000,
+                 close: function () {
+                    $(".theme-config-box").addClass("show");
+                    $("body",parent.document).toggleClass("mini-navbar");
+                    window.parent.SmoothlyMenu()
+                  }
+              });
    }
     </script>
   
