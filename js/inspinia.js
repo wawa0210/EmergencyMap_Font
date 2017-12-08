@@ -258,14 +258,14 @@ function SmoothlyMenu() {
         // For smoothly turn on menu
         setTimeout(
             function () {
-                $('#side-menu').fadeIn(200);
-            }, 100);
+                $('#side-menu').fadeIn(20);
+            }, 10);
     } else if ($('body').hasClass('fixed-sidebar')) {
         $('#side-menu').hide();
         setTimeout(
             function () {
-                $('#side-menu').fadeIn(200);
-            }, 300);
+                $('#side-menu').fadeIn(20);
+            }, 30);
     } else {
         // Remove all inline style from jquery fadeIn function to reset menu state
         $('#side-menu').removeAttr('style');

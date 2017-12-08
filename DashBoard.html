@@ -350,10 +350,11 @@
           window.parent.SmoothlyMenu()
          $.dialog.open("CompanyShowDetail.html", 
               {
-                 title: '进价为空商品列表', 
+                 title: obj.innerHTML, 
                  lock: true, 
                  opacity: 0.5, 
                  width: 1000,
+                 height:600,
                  close: function () {
                     $(".theme-config-box").addClass("show");
                     $("body",parent.document).toggleClass("mini-navbar");
