@@ -32,7 +32,8 @@
                   </span>
                   <div class="switch">
                       <div>
-                         <select class="form-control m-b" name="account">
+                         <select class="form-control m-b" id="sel_Distrect" onchange="SerachCompany()">
+                          <option value="0">请选择</option>
                           <option value="230202">龙沙区</option>
                           <option value="230203">建华区</option>
                           <option value="230204">铁锋区</option>
@@ -55,65 +56,32 @@
               </div>
 
               <div class="setings-item">
-                      <span>
-                          Collapse menu
-                      </span>
-      
+                  <span>
+                      安全等级
+                  </span>
                   <div class="switch">
-                      <div class="onoffswitch">
-                          <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu">
-                          <label class="onoffswitch-label" for="collapsemenu">
-                              <span class="onoffswitch-inner"></span>
-                              <span class="onoffswitch-switch"></span>
-                          </label>
+                      <div>
+                         <select class="form-control m-b" style="width: 160px;" id="sel_RiskLevel" onchange="SerachCompany()">
+                          <option value="0">请选择</option>
+                          <option value="1">1级</option>
+                          <option value="2">2级</option>
+                          <option value="3">3级</option>
+                        </select>
                       </div>
                   </div>
               </div>
-              <div class="setings-item">
-                      <span>
-                          Fixed sidebar
-                      </span>
 
-                  <div class="switch">
-                      <div class="onoffswitch">
-                          <input type="checkbox" name="fixedsidebar" class="onoffswitch-checkbox" id="fixedsidebar">
-                          <label class="onoffswitch-label" for="fixedsidebar">
-                              <span class="onoffswitch-inner"></span>
-                              <span class="onoffswitch-switch"></span>
-                          </label>
-                      </div>
-                  </div>
-              </div>
               <div class="setings-item">
-                      <span>
-                          Top navbar
-                      </span>
-
+                  <span>
+                      公司名称
+                  </span>
                   <div class="switch">
-                      <div class="onoffswitch">
-                          <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar">
-                          <label class="onoffswitch-label" for="fixednavbar">
-                              <span class="onoffswitch-inner"></span>
-                              <span class="onoffswitch-switch"></span>
-                          </label>
+                      <div>
+                         <input type="text" class="form-control m-b" id="ip_CompanyName" onblur ="SerachCompany()">
                       </div>
                   </div>
               </div>
-              <div class="setings-item">
-                      <span>
-                          Boxed layout
-                      </span>
 
-                  <div class="switch">
-                      <div class="onoffswitch">
-                          <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
-                          <label class="onoffswitch-label" for="boxedlayout">
-                              <span class="onoffswitch-inner"></span>
-                              <span class="onoffswitch-switch"></span>
-                          </label>
-                      </div>
-                  </div>
-              </div>
               <div class="setings-item">
                       <span>
                           Fixed footer
@@ -188,32 +156,35 @@
         "#651067", "#329262", "#5574a6", "#3b3eac"
     ];
 
-    //加载DistrictExplorer，loadUI的路径参数为模块名中 'ui/' 之后的部分 
-    AMapUI.loadUI(['geo/DistrictExplorer'], function(DistrictExplorer) {
-       //启动页面
-       initPage(DistrictExplorer);
-    });
+    //齐齐哈尔的区划编码
+    LoadSpecifyDistrict(230200);
 
-    function initPage(DistrictExplorer) {
-       //创建一个实例
-       var districtExplorer = new DistrictExplorer({
-          map: map //关联的地图实例
-       });
+    function LoadSpecifyDistrict(adCode){
+      //加载DistrictExplorer，loadUI的路径参数为模块名中 'ui/' 之后的部分 
+      AMapUI.loadUI(['geo/DistrictExplorer'], function(DistrictExplorer) {
+         //启动页面
+         initPage(DistrictExplorer);
+      });
 
-       var adcode = 230200; //齐齐哈尔的区划编码
+      function initPage(DistrictExplorer) {
+         //创建一个实例
+         var districtExplorer = new DistrictExplorer({
+            map: map //关联的地图实例
+         });
 
-       districtExplorer.loadAreaNode(adcode, function(error, areaNode) {
+         districtExplorer.loadAreaNode(adCode, function(error, areaNode) {
 
-          if (error) {
-             console.error(error);
-             return;
-          }
+            if (error) {
+               console.error(error);
+               return;
+            }
 
-          //绘制载入的区划节点
-          renderAreaNode(districtExplorer, areaNode);
-       });
+            //绘制载入的区划节点
+            renderAreaNode(districtExplorer, areaNode);
+         });
+      }
     }
-
+    
     function renderAreaNode(districtExplorer, areaNode) {
 
        //清除已有的绘制内容
@@ -258,10 +229,16 @@
     var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30),closeWhenClickMap:true});
 
     GetCompanyInfo(function(result){
-         if(result.code==0){
-            // //随机创建一批点
-            // var data = createPoints(map.getCenter(), 100);
-            for (var i = 0, marker; i < result.data.length; i++) {
+         LoadMapMarker(result);
+    })
+
+    //存储标记信息
+    var markers=[];
+
+    function LoadMapMarker(result){
+      if(result.code==0){
+            markers=[];
+            for (var i = 0; i < result.data.length; i++) {
                 var companyInfo = result.data[i];
 
                 var marker = new AMap.Marker({
@@ -280,6 +257,8 @@
                 marker.on('mouseover', markerClick);
                 marker.on('mouseout', markerOutClick);
                 marker.emit('mouseover', {target: marker});
+
+                markers.push(marker);
             }
             function markerClick(e) {
                 infoWindow.setContent(e.target.content);
@@ -291,26 +270,19 @@
             infoWindow.close();
             map.setFitView();
         }
-    })
-
-    // //仅作示意
-    // function createPoints(center, num) {
-    //     var data = [];
-    //     for (var i = 0, len = num; i < len; i++) {
-    //         data.push({
-    //             position: [
-    //                 center.getLng() + (Math.random() > 0.8 ? 0.6 : Math.random()) * Math.random(),
-    //                 center.getLat() + (Math.random() > 0.8 ? 0.6 : Math.random()) * Math.random()
-    //             ]
-    //         });
-    //     }
-    //     return data;
-    // }
+    }
 
    function GetCompanyInfo(callback){
-        var uri = '/companies';
+        var companyName=$("#ip_CompanyName").val();
+        var riskLevel=$("#sel_RiskLevel").val();
+        var countryCode=$("#sel_Distrect").val();
+        var uri = '/companies?companyName='+companyName+"&riskLevel="+riskLevel+"&countryCode="+countryCode;
         doGet(uri,function(res){
                  if (callback) {
+                        //如果选择指定位置，则渲染该区域
+                        // if(countryCode!="0"){
+                        //   LoadSpecifyDistrict(countryCode);
+                        // }
                         callback(res);
                     }
         });
@@ -323,6 +295,17 @@
           $(".theme-config-box").addClass("show");
         }
     });
+
+    //根据输入条件搜索对应公司
+    function SerachCompany(){
+       GetCompanyInfo(function(result){
+
+          //渲染之前，清除所有之前标记信息
+          map.remove(markers);
+          LoadMapMarker(result);
+       })
+    }
+
     </script>
 
 </body>
