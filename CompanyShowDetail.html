@@ -52,14 +52,6 @@
 
                                     <fieldset class="form-horizontal">
                                         <div class="col-md-7">
-                                            <h2 class="font-bold m-b-xs">
-                                                Desktop publishing software <span>wawa</span>
-                                            </h2>
-                                            wawa<small>Many desktop publishing packages and web page editors now.</small>
-                                            <div class="m-t-md">
-                                                <h2 class="product-main-price">$406,602 <small class="text-muted">Exclude Tax</small> </h2>
-                                            </div>
-                                            <hr>
                                             <h3>基本信息</h3>
                                                 <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">行政区</span></div><span class="span_content">黑龙江省齐齐哈尔市龙江县</span></div>
                                                 <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">详细地址</span></div><span class="span_content">龙江县龙南大道500号</span></div>
@@ -80,7 +72,6 @@
                                                 <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">安全生产管理机构负责人</span></div><span class="span_content">王老五(13025896325)</span></div>
                                                 <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">安全值班电话</span></div><span class="span_content">15936523987</span></div>
                                                 <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">应急咨询电话</span></div><span class="span_content">18965789326</span></div>
-                                            <hr>
                                           <!--   <div class="small text-muted">
                                                 It is a long established fact that a reader will be distracted by the readable
                                                 content of a page when looking at its layout. The point of using Lorem Ipsum is
@@ -216,7 +207,23 @@
         if(companyId!=null && companyId!=""){
             GetManagerInfo(companyId,function(result){
                 if(result.code==0){
-                    // alert(result.data);
+                    debugger;
+                    var spanContentContrainer= $(".span_content");
+                    spanContentContrainer[0].innerHTML=result.data.provice+result.data.county+result.data.county;
+                    spanContentContrainer[1].innerHTML=result.data.addressDetail;
+                    spanContentContrainer[2].innerHTML=(result.data.zipCode==""?"无":result.data.zipCode);
+                    spanContentContrainer[3].innerHTML=(result.data.economy==""?"无":result.data.economy);  //单位性质
+                    spanContentContrainer[4].innerHTML=(result.data.riskLevel+"级");  //安全风险
+                    spanContentContrainer[5].innerHTML=result.data.foundedTime;  //成立时间
+                    spanContentContrainer[6].innerHTML=result.data.issureTime;  //发证时间
+                    spanContentContrainer[7].innerHTML=result.data.industry;  //行业
+                    spanContentContrainer[8].innerHTML=(result.data.companyScale==""?"无":result.data.companyScale);
+                    spanContentContrainer[9].innerHTML=(result.data.companyIncome==""?"无":result.data.companyIncome);
+                    spanContentContrainer[10].innerHTML=result.data.owner ;  
+                    spanContentContrainer[11].innerHTML=result.data.chiefSafeyName+"("+result.data.chiefSafeyPhone+")" ;  //安全负责人
+                    spanContentContrainer[12].innerHTML=result.data.viceSafeyName+"("+result.data.viceSafeyPhone+")" ;  //安全机构负责人
+                    spanContentContrainer[13].innerHTML=(result.data.onDutyPhone==""?"无":result.data.zipCode);   //值班电话
+                    spanContentContrainer[14].innerHTML=(result.data.emergencyPhone==""?"无":result.data.emergencyPhone) ;   //应急咨询电话
                 }
             })
         }
