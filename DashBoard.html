@@ -27,10 +27,38 @@
           <div class="skin-setttings">
               <div class="title">企业信息搜索</div>
               <div class="setings-item">
+                  <span>
+                      所在区域
+                  </span>
+                  <div class="switch">
+                      <div>
+                         <select class="form-control m-b" name="account">
+                          <option value="230202">龙沙区</option>
+                          <option value="230203">建华区</option>
+                          <option value="230204">铁锋区</option>
+                          <option value="230205">昂昂溪区</option>
+                          <option value="230206">富拉尔基区</option>
+                          <option value="230207">碾子山区</option>
+                          <option value="230208">梅里斯达斡尔族区</option>
+                          <option value="230221">龙江县</option>
+                          <option value="230223">依安县</option>
+                          <option value="230224">泰来县</option>
+                          <option value="230225">甘南县</option>
+                          <option value="230227">富裕县</option>
+                          <option value="230229">克山县</option>
+                          <option value="230230">克东县</option>
+                          <option value="230231">拜泉县</option>
+                          <option value="230281" >讷河市</option>
+                        </select>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="setings-item">
                       <span>
                           Collapse menu
                       </span>
-
+      
                   <div class="switch">
                       <div class="onoffswitch">
                           <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu">
@@ -288,7 +316,7 @@
         });
     }
 
-    $(".theme-config-box").click(function(){
+    $(".spin-icon").click(function(){
         if($(".theme-config-box").is(".show")){
             $(".theme-config-box").removeClass("show");
         }else{
