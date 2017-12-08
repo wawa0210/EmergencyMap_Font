@@ -14,6 +14,7 @@
 
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
 </head>
 <body>
 	
@@ -66,6 +67,7 @@
                           <option value="1">1级</option>
                           <option value="2">2级</option>
                           <option value="3">3级</option>
+                          <option value="4">4级</option>
                         </select>
                       </div>
                   </div>
@@ -136,6 +138,7 @@
   	<!-- 高德地图相关 -->
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.2&key=682be051dc164d7c0f0a5b008ee726f3&plugin=AMap.PlaceSearch,AMap.AdvancedInfoWindow"></script> 
     <script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+     <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
 
     <script>
 
@@ -224,27 +227,73 @@
        map.setFitView(districtExplorer.getAllFeaturePolygons());
     }
 
-
     //地图描绘点
     var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30),closeWhenClickMap:true});
-
-    GetCompanyInfo(function(result){
-         LoadMapMarker(result);
-    })
 
     //存储标记信息
     var markers=[];
 
+    // function LoadMapMarker(result){
+    //   if(result.code==0){
+    //         markers=[];
+    //         for (var i = 0; i < result.data.length; i++) {
+    //             var companyInfo = result.data[i];
+
+    //             var marker = new AMap.Marker({
+    //                 position: [companyInfo.longitude,companyInfo.latitude],
+    //                 map: map
+    //             });
+    //             //构建信息窗体中显示的内容
+    //            var info = [];
+    //            info.push("<div style=\"padding:5px 5px\"><b>"+ companyInfo.companyName+"&nbsp;&nbsp;&nbsp;</b><hr/>行政区:"+(companyInfo.city==''?"":companyInfo.city+";")+companyInfo.companyDetail);
+    //            info.push("单位性质:"+(companyInfo.industry==null?"无":companyInfo.industry));
+    //            info.push("安全风险等级:"+companyInfo.riskLevel);
+    //            info.push("负责人:"+(companyInfo.chiefSafeyName==null?"无":companyInfo.chiefSafeyName));
+    //            info.push("联系电话:"+(companyInfo.chiefSafeyPhone==null?"无":companyInfo.chiefSafeyPhone));
+
+    //             marker.content = info.join("<br>");
+    //             marker.on('mouseover', markerClick);
+    //             marker.on('mouseout', markerOutClick);
+    //             marker.emit('mouseover', {target: marker});
+
+    //             markers.push(marker);
+    //         }
+
+           
+    //         infoWindow.close();
+    //         map.setFitView();
+    //     }
+    // }
+
     function LoadMapMarker(result){
       if(result.code==0){
-            markers=[];
-            for (var i = 0; i < result.data.length; i++) {
+          markers=[];
+
+          //加载SimpleMarker
+          AMapUI.loadUI(['overlay/SimpleMarker'], function(SimpleMarker) {
+            var iconTheme = 'default';
+            //内置的样式
+            var iconStyles = SimpleMarker.getBuiltInIconStyles(iconTheme);
+             for (var i = 0, len = result.data.length; i < len; i++) {
                 var companyInfo = result.data[i];
 
-                var marker = new AMap.Marker({
-                    position: [companyInfo.longitude,companyInfo.latitude],
-                    map: map
+                var labelColor = (companyInfo.riskLevel==1?"red":(companyInfo.riskLevel==2?"orange":(companyInfo.riskLevel==3?"yellow":"blue")));
+                var marker = new SimpleMarker({
+                  iconTheme: iconTheme,
+                  //使用内置的iconStyle
+                  // iconStyle: '<div style="background:'+labelColor+';width:20px;height:20px;"></div>',
+                  iconStyle: labelColor,
+                  //显示定位点
+                  showPositionPoint:true,
+                  map: map,
+                  position: [companyInfo.longitude,companyInfo.latitude],
+
+                  //Marker的label(见http://lbs.amap.com/api/javascript-api/reference/overlay/#Marker)
+                  label: {
+                      offset: new AMap.Pixel(27, 25)
+                  }
                 });
+
                 //构建信息窗体中显示的内容
                var info = [];
                info.push("<div style=\"padding:5px 5px\"><b>"+ companyInfo.companyName+"&nbsp;&nbsp;&nbsp;</b><hr/>行政区:"+(companyInfo.city==''?"":companyInfo.city+";")+companyInfo.companyDetail);
@@ -259,18 +308,25 @@
                 marker.emit('mouseover', {target: marker});
 
                 markers.push(marker);
-            }
-            function markerClick(e) {
-                infoWindow.setContent(e.target.content);
-                infoWindow.open(map, e.target.getPosition());
-            }
-             function markerOutClick(e) {
-               infoWindow.close();
-            }
+
+              }
             infoWindow.close();
             map.setFitView();
-        }
+          });
+      }
     }
+
+    function markerClick(e) {
+                infoWindow.setContent(e.target.content);
+                infoWindow.open(map, e.target.getPosition());
+    }
+    function markerOutClick(e) {
+       infoWindow.close();
+    }
+
+    GetCompanyInfo(function(result){
+         LoadMapMarker(result);
+    })
 
    function GetCompanyInfo(callback){
         var companyName=$("#ip_CompanyName").val();
