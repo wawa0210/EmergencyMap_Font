@@ -29,7 +29,7 @@
 </head>
 <body>
 	
-	<div class="wrapper wrapper-content" id="div_content" style="height: 800px;"></div>
+	<div class="wrapper wrapper-content" id="div_content"></div>
 
   <div class="theme-config" style="top:20px;">
       <div class="theme-config-box show">
@@ -362,6 +362,10 @@
                   }
               });
    }
+
+   $(function(){
+      $("#div_content").height($("#iframe_DashBoard",parent.document).height()-100);
+   })
     </script>
   
 </body>

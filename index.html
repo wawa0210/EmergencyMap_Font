@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Dashboard</title>
+    <title>齐齐哈尔市安全生产应急救援平台风险管控系统</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -72,7 +72,7 @@
                 </nav>
             </div>
             <div class="gray-bg" id="div_MainContent">
-                <iframe runat="server" ID="iframe_DashBoard" height="800" width="100%" frameborder="no" border="0" scrolling="no"></iframe>
+                <iframe runat="server" ID="iframe_DashBoard" width="100%" frameborder="no" border="0"></iframe>
             </div>
         </div>
     </div>
@@ -143,9 +143,10 @@
             var url="";
             switch (index) {
                 case 0: url = "Dashboard.html"; break;
-                case 1: url = "CompanyList.html"; break;
+                case 1: url = "/Static/CompanyList.html"; break;
             }
-        $("#iframe_DashBoard").attr('src',url);
+            $("#iframe_DashBoard").height($(document).height()+50);
+            $("#iframe_DashBoard").attr('src',url);
         }
   </script>
 </body>
