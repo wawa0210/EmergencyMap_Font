@@ -54,6 +54,7 @@
 					                <th>分管安全负责人电话</th>
 					                <th>生产机构负责人</th>
 					                <th>生产机构负责人电话</th>
+					                <th>操作</th>
 					            </tr>
 				            </thead>
 			            </table>
@@ -160,9 +161,20 @@
 	                { "data": "chiefSafeyPhone" },
 	                { "data": "viceSafeyName" },
 	                { "data": "viceSafeyPhone" },
+	                {  
+		                "data": null,  
+		                "orderable": false,  
+		                "render": function ( data, type, full, meta ) {  
+			                return GetEditButtonStr(data.id);  
+			            }  
+			        }  
 	            ]
             });
         });
+
+        function GetEditButtonStr(companyId){
+        	return '<div class="btn-group"><button class="btn-white btn btn-xs" onclick="EditCompany(\''+companyId+'\')">编辑</button></div>';
+        }
 
         function GetPageCompanyInfo(param,callback){
     	  	var uri = '/companies/pageinfo?currentPage='+param.currentPage+'&pageSize='+param.pageSize+'&companyName='+param.companyName;
@@ -174,10 +186,16 @@
         }
 
         function AddCompanyInfo(){
-        	$("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyEdit.html");
+        	$("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyEdit.html?actionType=add");
+        }
+        function EditCompany(companyId){
+        	$("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyEdit.html?actionType=edit&companyId="+companyId);
         }
     </script>
 
 </body>
 
 </html>
+
+
+

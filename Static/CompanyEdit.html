@@ -186,10 +186,10 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group" style="display: inline;">
                                     <div>
-                                        <intput type="button" class="btn btn-default" id="btn_Cancel">取消</input>
+                                        <intput type="button" class="btn btn-default" id="btn_Cancel" onclick="Cancel()">取消</input>
                                     </div>
                                     <div>
-                                        <intput type="button" class="btn btn-primary" id="btn_Save">保存</intput>
+                                        <intput type="button" onclick="SaveCompanyInfo()"  class="btn btn-primary" id="btn_Save">保存</intput>
                                     </div>
                                 </div>
                             </form>
@@ -199,6 +199,8 @@
             </div>
         </div>
 
+    <input type="hidden"  id="hid_actionType" value="0" />
+    <input type="hidden"  id="hid_companyId" value="0" />
     <!-- Mainly scripts -->
     <script src="/js/jquery-2.1.1.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -219,6 +221,20 @@
 
     <script>
         $(document).ready(function(){
+            //判断新增or编辑
+            var actionType=getUrlParam("actionType");
+            if(actionType=="add"){
+                $("#hid_actionType").val("0");
+            }
+            else{
+                var companyId = getUrlParam("companyId");
+                if(companyId!=null && companyId!="")
+                {
+                    LoadCompanyInfo(companyId);
+                }
+                $("#hid_companyId").val(companyId);
+                $("#hid_actionType").val("1");
+            }
 
             $('#ip_foundedTime').datepicker({
                 todayBtn: "linked",
@@ -234,14 +250,15 @@
                 calendarWeeks: true,
                 autoclose: true
             });
+       });
 
+        function Cancel(){
+            $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyList.html");
+        }
 
-            $("#btn_Cancel").click(function(){
-              $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyList.html");
-            });
-
-            $("#btn_Save").click(function(){
-               var companyInfo ={};
+        function SaveCompanyInfo(){
+          var companyInfo ={};
+                companyInfo.id = $("#hid_companyId").val();
                 companyInfo.companyName = $("#ip_companyName").val();
                 companyInfo.provice = "黑龙江省"
                 companyInfo.provCode = "230000";
@@ -270,7 +287,7 @@
                 companyInfo.emergencyPhone = $("#ip_emergencyPhone").val();
                 companyInfo.riskLevel = $("#sel_RiskLevel").val();
               
-                 AddCompanyInfo(companyInfo,function(result){
+                EditCompanyInfo(companyInfo,function(result){
                    if(result.code=="0"){
                       alert("保存成功");
                       Cancel();
@@ -279,55 +296,64 @@
                     alert("保存失败");
                    }
                 });
-            });
-       });
-
-        function Cancel(){
-            $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyList.html");
         }
 
-        // function SaveCompanyInfo(){
-        //   var companyInfo ={};
-        //     companyInfo.companyName = $("#ip_companyName").val();
-        //     companyInfo.provice = "黑龙江省"
-        //     companyInfo.provCode = "230000";
-        //     companyInfo.city = "齐齐哈尔市";
-        //     companyInfo.cityCode = "230200";
-        //     companyInfo.county = $("#ip_county").val();
-        //     companyInfo.countyCode = $("#sel_County").val();
-        //     companyInfo.addressDetail = $("#ip_adaddressDetail").val();
-        //     companyInfo.longitude = $("#ip_longitude").val();
-        //     companyInfo.latitude = $("#ip_latitude").val();
-        //     companyInfo.industry = $("#ip_industry").val();
-        //     companyInfo.economy = $("#sel_economy").val();
-        //     companyInfo.companyDetail = $("#ip_companyDetail").val();
-        //     companyInfo.zipCode = $("#ip_zipCode").val();
-        //     companyInfo.foundedTime = $("#ip_foundedTime").val();
-        //     companyInfo.issureTime = $("#ip_issureTime").val();
-        //     companyInfo.industryCode = $("#ip_industryCode").val();
-        //     companyInfo.owner = $("#ip_owner").val();
-        //     companyInfo.companyScale = $("#sel_economy").val();
-        //     companyInfo.companyIncome = $("#ip_companyIncome").val();
-        //     companyInfo.chiefSafeyName = $("#ip_chiefSafeyName").val();
-        //     companyInfo.chiefSafeyPhone = $("#ip_chiefSafeyPhone").val();
-        //     companyInfo.viceSafeyName = $("#ip_viceSafeyName").val();
-        //     companyInfo.viceSafeyPhone = $("#ip_viceSafeyPhone").val();
-        //     companyInfo.onDutyPhone = $("#ip_onDutyPhone").val();
-        //     companyInfo.emergencyPhone = $("#ip_emergencyPhone").val();
-        //     companyInfo.riskLevel = $("#sel_RiskLevel").val();
-          
-        //      AddCompanyInfo(userId,function(result){
-        //        debugger;
-        //     });
-
-        // }
-
-        function AddCompanyInfo(params,callback){
+        function EditCompanyInfo(params,callback){
             var uri = '/companies';
-            doPost(uri,params,function(res){
-               if (callback) {
-                      callback(res);
-                  }
+            if($("#hid_actionType").val()=="0"){
+                doPost(uri,params,function(res){
+                   if (callback) {
+                          callback(res);
+                      }
+                });
+            }
+            else{
+                //编辑
+                doPut(uri,params,function(res){
+                   if (callback) {
+                          callback(res);
+                      }
+                });
+            }
+        }
+
+        //加载公司信息
+        function LoadCompanyInfo(companyId){
+            GetCompanyInfo(companyId,function(result){
+                if(result.code=="0"){
+                    var companyInfo = result.data;
+                     $("#ip_companyName").val(companyInfo.companyName);
+                     $("#sel_County").val(companyInfo.countyCode);
+                     $("#ip_adaddressDetail").val(companyInfo.addressDetail);
+                     $("#ip_longitude").val(companyInfo.longitude);
+                     $("#ip_latitude").val(companyInfo.latitude);
+                     $("#ip_industry").val(companyInfo.industry);
+                     $("#sel_economy").val(companyInfo.economy);
+                     $("#ip_companyDetail").val(companyInfo.companyDetail);
+                     $("#ip_zipCode").val(companyInfo.zipCode);
+                     $("#ip_foundedTime").val(companyInfo.foundedTime);
+                     $("#ip_issureTime").val(companyInfo.issureTime);
+                     $("#ip_industryCode").val(companyInfo.industryCode);
+                     $("#ip_owner").val(companyInfo.owner);
+                     $("#sel_economy").val(companyInfo.companyScale);
+                     $("#ip_companyIncome").val(companyInfo.companyIncome);
+                     $("#ip_chiefSafeyName").val(companyInfo.chiefSafeyName);
+                     $("#ip_chiefSafeyPhone").val(companyInfo.chiefSafeyPhone);
+                     $("#ip_viceSafeyName").val(companyInfo.viceSafeyName);
+                     $("#ip_viceSafeyPhone").val(companyInfo.viceSafeyPhone);
+                     $("#ip_onDutyPhone").val(companyInfo.onDutyPhone);
+                     $("#ip_emergencyPhone").val(companyInfo.emergencyPhone);
+                     $("#sel_RiskLevel").val(companyInfo.riskLevel);
+                }
+            });
+        }
+
+        function GetCompanyInfo(companyId,callback){
+            var uri = '/companies/'+companyId;
+            doGet(uri,function(res){
+                if (callback) {
+                    callback(res);
+                }
             });
         }
     </script>
