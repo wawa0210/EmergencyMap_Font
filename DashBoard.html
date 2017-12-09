@@ -268,8 +268,9 @@
 
                 //构建信息窗体中显示的内容
                var info = [];
-               info.push("<div style=\"padding:5px 5px\"><b>"+ companyInfo.companyName+"&nbsp;&nbsp;&nbsp;</b><hr/>行政区:"+(companyInfo.city==''?"":companyInfo.city+";")+companyInfo.companyDetail);
-               info.push("单位性质:"+(companyInfo.industry==null?"无":companyInfo.industry));
+               info.push("<div style=\"padding:5px 5px\"><b>"+ companyInfo.companyName+"&nbsp;&nbsp;&nbsp;</b><hr/>所在区域:"+companyInfo.provice+companyInfo.city+companyInfo.county);
+               info.push("详细地址:"+companyInfo.addressDetail);
+               info.push("单位性质:"+(companyInfo.economy==null?"无":companyInfo.economy));
                info.push("安全风险等级:"+companyInfo.riskLevel);
                info.push("负责人:"+(companyInfo.chiefSafeyName==null?"无":companyInfo.chiefSafeyName));
                info.push("联系电话:"+(companyInfo.chiefSafeyPhone==null?"无":companyInfo.chiefSafeyPhone));

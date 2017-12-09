@@ -53,8 +53,7 @@
                                             <option value="230200">齐齐哈尔</option>
                                         </select> -->
                                         <select id="sel_County" class="form-control">
-                                          <option value="0">请选择</option>
-                                          <option value="230202">龙沙区</option>
+                                          <option value="230202" selected="selected">龙沙区</option>
                                           <option value="230203">建华区</option>
                                           <option value="230204">铁锋区</option>
                                           <option value="230205">昂昂溪区</option>
@@ -109,12 +108,12 @@
                                 <div class="form-group"><label class="col-lg-2 control-label">企业规模</label>
                                     <div class="col-sm-4">
                                          <select class="form-control m-b" id="sel_CompanyScale">
-                                              <option value="1">0-20人</option>
-                                              <option value="2">20-99人</option>
-                                              <option value="3">100-499人</option>
-                                              <option value="4">500-999人</option>
-                                              <option value="5">1000-9999人</option>
-                                              <option value="6">10000人以上</option>
+                                              <option value="0-20人">0-20人</option>
+                                              <option value="20-99人">20-99人</option>
+                                              <option value="100-499人">100-499人</option>
+                                              <option value="500-999人">500-999人</option>
+                                              <option value="1000-9999人">1000-9999人</option>
+                                              <option value="10000人以上">10000人以上</option>
                                             </select>
                                     </div>
                                 </div>
@@ -187,10 +186,10 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group" style="display: inline;">
                                     <div>
-                                        <intput type="button" class="btn btn-default" id="btn_Cancel" onclick="Cancel()">取消</input>
+                                        <intput type="button" class="btn btn-default" id="btn_Cancel">取消</input>
                                     </div>
                                     <div>
-                                        <intput type="button" class="btn btn-primary" >保存</intput>
+                                        <intput type="button" class="btn btn-primary" id="btn_Save">保存</intput>
                                     </div>
                                 </div>
                             </form>
@@ -199,8 +198,6 @@
                 </div>
             </div>
         </div>
-
-
 
     <!-- Mainly scripts -->
     <script src="/js/jquery-2.1.1.js"></script>
@@ -217,17 +214,121 @@
 
     <!-- Jquery Validate -->
     <script src="/js/plugins/validate/jquery.validate.min.js"></script>
-
+    <script src="/js/common.js"></script>
+    <script src="/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
     <script>
         $(document).ready(function(){
+
+            $('#ip_foundedTime').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+            $('#ip_issureTime').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+
+
             $("#btn_Cancel").click(function(){
-                // debugger;
-                // $("#iframe_DashBoard",parent.document).attr('src',"CompanyList.html");
+              $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyList.html");
+            });
+
+            $("#btn_Save").click(function(){
+               var companyInfo ={};
+                companyInfo.companyName = $("#ip_companyName").val();
+                companyInfo.provice = "黑龙江省"
+                companyInfo.provCode = "230000";
+                companyInfo.city = "齐齐哈尔市";
+                companyInfo.cityCode = "230200";
+                companyInfo.county = $("#sel_County").find("option:selected").text();
+                companyInfo.countyCode = $("#sel_County").val();
+                companyInfo.addressDetail = $("#ip_adaddressDetail").val();
+                companyInfo.longitude = $("#ip_longitude").val();
+                companyInfo.latitude = $("#ip_latitude").val();
+                companyInfo.industry = $("#ip_industry").val();
+                companyInfo.economy = $("#sel_economy").val();
+                companyInfo.companyDetail = $("#ip_companyDetail").val();
+                companyInfo.zipCode = $("#ip_zipCode").val();
+                companyInfo.foundedTime = $("#ip_foundedTime").val();
+                companyInfo.issureTime = $("#ip_issureTime").val();
+                companyInfo.industryCode = $("#ip_industryCode").val();
+                companyInfo.owner = $("#ip_owner").val();
+                companyInfo.companyScale = $("#sel_economy").val();
+                companyInfo.companyIncome = $("#ip_companyIncome").val();
+                companyInfo.chiefSafeyName = $("#ip_chiefSafeyName").val();
+                companyInfo.chiefSafeyPhone = $("#ip_chiefSafeyPhone").val();
+                companyInfo.viceSafeyName = $("#ip_viceSafeyName").val();
+                companyInfo.viceSafeyPhone = $("#ip_viceSafeyPhone").val();
+                companyInfo.onDutyPhone = $("#ip_onDutyPhone").val();
+                companyInfo.emergencyPhone = $("#ip_emergencyPhone").val();
+                companyInfo.riskLevel = $("#sel_RiskLevel").val();
+              
+                 AddCompanyInfo(companyInfo,function(result){
+                   if(result.code=="0"){
+                      alert("保存成功");
+                      Cancel();
+                   }
+                   else{
+                    alert("保存失败");
+                   }
+                });
             });
        });
+
         function Cancel(){
             $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyList.html");
+        }
+
+        // function SaveCompanyInfo(){
+        //   var companyInfo ={};
+        //     companyInfo.companyName = $("#ip_companyName").val();
+        //     companyInfo.provice = "黑龙江省"
+        //     companyInfo.provCode = "230000";
+        //     companyInfo.city = "齐齐哈尔市";
+        //     companyInfo.cityCode = "230200";
+        //     companyInfo.county = $("#ip_county").val();
+        //     companyInfo.countyCode = $("#sel_County").val();
+        //     companyInfo.addressDetail = $("#ip_adaddressDetail").val();
+        //     companyInfo.longitude = $("#ip_longitude").val();
+        //     companyInfo.latitude = $("#ip_latitude").val();
+        //     companyInfo.industry = $("#ip_industry").val();
+        //     companyInfo.economy = $("#sel_economy").val();
+        //     companyInfo.companyDetail = $("#ip_companyDetail").val();
+        //     companyInfo.zipCode = $("#ip_zipCode").val();
+        //     companyInfo.foundedTime = $("#ip_foundedTime").val();
+        //     companyInfo.issureTime = $("#ip_issureTime").val();
+        //     companyInfo.industryCode = $("#ip_industryCode").val();
+        //     companyInfo.owner = $("#ip_owner").val();
+        //     companyInfo.companyScale = $("#sel_economy").val();
+        //     companyInfo.companyIncome = $("#ip_companyIncome").val();
+        //     companyInfo.chiefSafeyName = $("#ip_chiefSafeyName").val();
+        //     companyInfo.chiefSafeyPhone = $("#ip_chiefSafeyPhone").val();
+        //     companyInfo.viceSafeyName = $("#ip_viceSafeyName").val();
+        //     companyInfo.viceSafeyPhone = $("#ip_viceSafeyPhone").val();
+        //     companyInfo.onDutyPhone = $("#ip_onDutyPhone").val();
+        //     companyInfo.emergencyPhone = $("#ip_emergencyPhone").val();
+        //     companyInfo.riskLevel = $("#sel_RiskLevel").val();
+          
+        //      AddCompanyInfo(userId,function(result){
+        //        debugger;
+        //     });
+
+        // }
+
+        function AddCompanyInfo(params,callback){
+            var uri = '/companies';
+            doPost(uri,params,function(res){
+               if (callback) {
+                      callback(res);
+                  }
+            });
         }
     </script>
 
