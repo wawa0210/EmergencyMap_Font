@@ -8,14 +8,14 @@
 
     <title></title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
-    <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 
     <style type="text/css">
         .span_title{
@@ -36,7 +36,7 @@
 </head>
 <body>
 
-    <div class="wrapper fadeInRight ecommerce">
+    <div class="fadeInRight ecommerce">
 
         <div class="row">
             <div>
@@ -72,16 +72,6 @@
                                                 <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">安全生产管理机构负责人</span></div><span class="span_content">王老五(13025896325)</span></div>
                                                 <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">安全值班电话</span></div><span class="span_content">15936523987</span></div>
                                                 <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">应急咨询电话</span></div><span class="span_content">18965789326</span></div>
-                                          <!--   <div class="small text-muted">
-                                                It is a long established fact that a reader will be distracted by the readable
-                                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-
-                                                <br/>
-                                                <br/>
-                                                There are many variations of passages of Lorem Ipsum available, but the majority
-                                                have suffered alteration in some form, by injected humour, or randomised words
-                                                which don't look even slightly believable.
-                                            </div> -->
                                         </div>
                                     </fieldset>
 
@@ -90,29 +80,51 @@
                             <div id="tab-2" class="tab-pane">
                                 <div class="panel-body">
 
-                                    <fieldset class="form-horizontal">
-                                        <div class="form-group"><label class="col-sm-2 control-label">ID:</label>
-                                            <div class="col-sm-10"><input type="text" class="form-control" placeholder="543"></div>
-                                        </div>
-                                        <div class="form-group"><label class="col-sm-2 control-label">Model:</label>
-                                            <div class="col-sm-10"><input type="text" class="form-control" placeholder="..."></div>
-                                        </div>
-                                        <div class="form-group"><label class="col-sm-2 control-label">Location:</label>
-                                            <div class="col-sm-10"><input type="text" class="form-control" placeholder="location"></div>
-                                        </div>
-                                        <div class="form-group"><label class="col-sm-2 control-label">Tax Class:</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control" >
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group"><label class="col-sm-2 control-label">Quantity:</label>
-                                            <div class="col-sm-10"><input type="text" class="form-control" placeholder="Quantity"></div>
-                                        </div>
-                                    </fieldset>
+                                    <div class="table-responsive">
+                                        <table class="table table-stripped table-bordered" id="tb_dangerousProduct">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    登记号
+                                                </th>
+                                                <th>
+                                                    名称
+                                                </th>
+                                                <th>
+                                                    别名
+                                                </th>
+                                                <th>
+                                                   危险源属性
+                                                </th>
+                                                <th>
+                                                    生产能力(吨)
+                                                </th>
+                                                <th>
+                                                   最大储量(吨)
+                                                </th>
+                                                <th>
+                                                   年生产量(吨)
+                                                </th>
+                                                <th>
+                                                   CAS
+                                                </th>
+                                                <th>
+                                                   UN
+                                                </th>
+                                                <th>
+                                                   剧毒
+                                                </th>
+                                                <th>
+                                                   安全技术说明书
+                                                </th>
+                                            </tr>
+                                            </thead>
 
+                                            <tbody>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
 
                                 </div>
                             </div>
@@ -190,14 +202,14 @@
     </div>
 
 <!-- Mainly scripts -->
-<script src="js/jquery-2.1.1.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <!-- Custom and plugin javascript -->
-<script src="js/inspinia.js"></script>
-<script src="js/plugins/pace/pace.min.js"></script>
-<script src="js/common.js"></script>
+<script src="/js/inspinia.js"></script>
+<script src="/js/plugins/pace/pace.min.js"></script>
+<script src="/js/common.js"></script>
 
 <script type="text/javascript">
     
@@ -205,9 +217,8 @@
         //获得url传参
         var companyId = getUrlParam("companyId");
         if(companyId!=null && companyId!=""){
-            GetManagerInfo(companyId,function(result){
+            GetCompanyDetailInfo(companyId,function(result){
                 if(result.code==0){
-                    debugger;
                     var spanContentContrainer= $(".span_content");
                     spanContentContrainer[0].innerHTML=result.data.provice+result.data.county+result.data.county;
                     spanContentContrainer[1].innerHTML=result.data.addressDetail;
@@ -226,11 +237,42 @@
                     spanContentContrainer[14].innerHTML=(result.data.emergencyPhone==""?"无":result.data.emergencyPhone) ;   //应急咨询电话
                 }
             })
+
+            //获得危险源信息
+            GetDangerousProductDetail(companyId,function(result){
+                if(result.code==0){
+                    $.each(result.data,function(index,item){
+                        var info = [];
+                        info.push("<tr>");
+                        info.push("<td>"+item.regesterId+"</td>");
+                        info.push("<td>"+item.productName+"</td>");
+                        info.push("<td>"+item.aliasName+"</td>");
+                        info.push("<td>"+item.productAttributes+"</td>");
+                        info.push("<td>"+item.manufacturability+"</td>");
+                        info.push("<td>"+item.productReserve+"</td>");
+                        info.push("<td>"+item.yearProduct+"</td>");
+                        info.push("<td>"+item.cas+"</td>");
+                        info.push("<td>"+item.un+"</td>");
+                        info.push("<td>"+(item.isToxicity=="1"?"是":"否")+"</td>");
+                        info.push("<td>"+item.instructions+"</td>");
+                        info.push("</tr>");
+                        $("#tb_dangerousProduct tbody").prepend(info.join(""));
+                    });
+                }
+            });
         }
     })
 
-    function GetManagerInfo(companyId,callback){
+    function GetCompanyDetailInfo(companyId,callback){
         var uri = '/companies/'+companyId;
+        doGet(uri,function(res){
+            if (callback) {
+                callback(res);
+            }
+        });
+    }
+      function GetDangerousProductDetail(companyId,callback){
+        var uri = '/dangerousproducts?companyId='+companyId;
         doGet(uri,function(res){
             if (callback) {
                 callback(res);
