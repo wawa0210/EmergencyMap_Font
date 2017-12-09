@@ -33,9 +33,6 @@
 		                    <a class="collapse-link">
 		                        <i class="fa fa-chevron-up"></i>
 		                    </a>
-		                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                        <i class="fa fa-wrench"></i>
-		                    </a>
 		                </div>
 		            </div>
 		            <div class="ibox-content">
@@ -46,7 +43,17 @@
 				            <thead>
 					            <tr>
 					                <th>公司名称</th>
+					                <th>公司法人</th>
+					                <th>安全等级</th>
+					                <th>所属行业</th>
+					                <th>经济类型</th>
+					                <th>成立时间</th>
+					                <th>发证时间</th>
 					                <th>详细地址</th>
+					                <th>分管安全负责人</th>
+					                <th>分管安全负责人电话</th>
+					                <th>生产机构负责人</th>
+					                <th>生产机构负责人电话</th>
 					            </tr>
 				            </thead>
 			            </table>
@@ -93,7 +100,7 @@
 			        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
 			        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
 			        "sInfoPostFix": "",
-			        "sSearch": "搜索:",
+			        "sSearch": "企业名称:",
 			        "sUrl": "",
 			        "sEmptyTable": "表中数据为空",
 			        "sLoadingRecords": "载入中...",
@@ -109,18 +116,18 @@
 			            "sSortDescending": ": 以降序排列此列"
 			        }
 			    },
+			    "ordering": false, //禁止排序
 			    "bLengthChange": false,
                 "bPaginate": true, //翻页功能
 			    "serverSide": true,  //启用服务器端分页
 			    "pageLength":10,
 			    "tabIndex": 1,
 			    ajax: function (data, callback, settings) {
-			    	debugger;
 	                //封装请求参数
 	                var param = {};
 	                param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
 	                param.currentPage = (data.start / data.length)+1;//当前页码
-	                param.companyName = '';//企业名称
+	                param.companyName = (data.search.value==null?"":data.search.value);//企业名称
 
 	                //ajax请求数据
 	                GetPageCompanyInfo(param,function(result){
@@ -142,7 +149,17 @@
             	//列表表头字段
 	            columns: [
 	                { "data": "companyName" },
-	                { "data": "addressDetail" },
+	                { "data": "owner" },
+	                { "data": "owner" },
+	                { "data": "riskLevel" },
+	                { "data": "industry" },
+	                { "data": "economy" },
+	                { "data": "foundedTime" },
+	                { "data": "issureTime" },
+	                { "data": "chiefSafeyName" },
+	                { "data": "chiefSafeyPhone" },
+	                { "data": "viceSafeyName" },
+	                { "data": "viceSafeyPhone" },
 	            ]
             });
         });
