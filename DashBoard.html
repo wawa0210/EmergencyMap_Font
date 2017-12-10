@@ -346,9 +346,9 @@
 
     //企业选中事件
    function CompanySelected(obj){
-          $(".theme-config-box").removeClass("show");
-          $("body",parent.document).toggleClass("mini-navbar");
-          window.parent.SmoothlyMenu()
+          // $(".theme-config-box").removeClass("show");
+          // $("body",parent.document).toggleClass("mini-navbar");
+          // window.parent.SmoothlyMenu()
          $.dialog.open("/Static/CompanyShowDetail.html?companyId="+$(obj).attr("value"), 
               {
                  title: obj.innerHTML, 
@@ -357,9 +357,9 @@
                  width: 1000,
                  height:600,
                  close: function () {
-                    $(".theme-config-box").addClass("show");
-                    $("body",parent.document).toggleClass("mini-navbar");
-                    window.parent.SmoothlyMenu()
+                    // $(".theme-config-box").addClass("show");
+                    // $("body",parent.document).toggleClass("mini-navbar");
+                    // window.parent.SmoothlyMenu()
                   }
               });
    }
