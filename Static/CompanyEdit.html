@@ -72,7 +72,7 @@
                                             <div class="col-sm-4"><input type="text" id="ip_adaddressDetail" placeholder="详细地址" name="adaddressDetail"  class="form-control" required></div>
                                         </div>
                                          <div class="form-group"><label class="col-sm-3 control-label">经纬度</label>
-                                            <div class="col-sm-4"><input type="text" id="ip_longitude" name="longitude" readonly="readonly" placeholder="经度" class="form-control" required></div>
+                                            <div class="col-sm-4"><input type="text" id="ip_longitude" name="longitude" readonly="readonly" placeholder="请在右侧地图选择定位" class="form-control" required></div>
                                             <div class="col-sm-4"><input type="text" id="ip_latitude" name="latitude" readonly="readonly" placeholder="纬度" class="form-control" requiredee32></div>
                                         </div>
                                         <div class="form-group"><label class="col-sm-3 control-label">邮编</label>
@@ -257,9 +257,13 @@
                 })
             })
         });
-
+        var marker = new AMap.Marker({
+            map:map,
+            bubble:true
+        })
         //为地图注册click事件获取鼠标点击出的经纬度坐标
         var clickEventListener = map.on('click', function(e) {
+            marker.setPosition(e.lnglat);
             $("#ip_longitude").val(e.lnglat.getLng());
             $("#ip_latitude").val(e.lnglat.getLat());
         });
@@ -270,6 +274,7 @@
 
         function select(e) {
             if (e.poi && e.poi.location) {
+                marker.setPosition(e.poi.location);
                 map.setZoom(15);
                 map.setCenter(e.poi.location);
             }
