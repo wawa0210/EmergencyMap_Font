@@ -64,7 +64,7 @@
                                 <span class="m-r-sm text-muted welcome-message">齐齐哈尔市安全生产应急救援平台风险管控系统</span>
                             </li>
                             <li>
-                                <a href="login.html">
+                                <a onclick="Loginout()">
                                     <i class="fa fa-sign-out"></i> 退出系統
                                 </a>
                             </li>
@@ -151,6 +151,14 @@
             }
             $("#iframe_DashBoard").height($(document).height()+50);
             $("#iframe_DashBoard").attr('src',url);
+        }
+
+        //退出登录
+        function Loginout(){
+            localStorage.clear();
+            $.removeCookie("token");
+            $.removeCookie("userid");
+            window.location.href = "login.html";
         }
   </script>
 </body>
