@@ -14,10 +14,9 @@
     <link href="/css/plugins/steps/jquery.steps.css" rel="stylesheet">
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
 
     <style>
-
         .wizard > .content > .body { position: relative; }
         .sel_Disable{
         }
@@ -40,167 +39,181 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <form class="form-horizontal">
-                                <div class="form-group"><label class="col-sm-2 control-label">公司名称</label>
-                                    <div class="col-sm-4"><input type="text" id="ip_companyName" class="form-control"></div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">行政区划</label>
-                                    <div class="col-sm-2">
-                                       <!--  <select id="sel_Prov" class="sel_Disable" disabled="disabled">
-                                            <option value="230202">黑龙江省</option>
-                                        </select>
-                                        <select id="sel_City" class="sel_Disable" disabled="disabled">
-                                            <option value="230200">齐齐哈尔</option>
-                                        </select> -->
-                                        <select id="sel_County" class="form-control">
-                                          <option value="230202" selected="selected">龙沙区</option>
-                                          <option value="230203">建华区</option>
-                                          <option value="230204">铁锋区</option>
-                                          <option value="230205">昂昂溪区</option>
-                                          <option value="230206">富拉尔基区</option>
-                                          <option value="230207">碾子山区</option>
-                                          <option value="230208">梅里斯达斡尔族区</option>
-                                          <option value="230221">龙江县</option>
-                                          <option value="230223">依安县</option>
-                                          <option value="230224">泰来县</option>
-                                          <option value="230225">甘南县</option>
-                                          <option value="230227">富裕县</option>
-                                          <option value="230229">克山县</option>
-                                          <option value="230230">克东县</option>
-                                          <option value="230231">拜泉县</option>
-                                          <option value="230281" >讷河市</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2"><input type="text" id="ip_adaddressDetail" placeholder="详细地址" class="form-control"></div>
-                                </div>
-                                 <div class="form-group"><label class="col-sm-2 control-label">经纬度</label>
-                                    <div class="col-sm-2"><input type="text" id="ip_longitude" placeholder="经度" class="form-control"></div>
-                                    <div class="col-sm-2"><input type="text" id="ip_latitude" placeholder="纬度" class="form-control"></div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">邮编</label>
-                                    <div class="col-sm-4"><input type="text" id="ip_zipCode" class="form-control"></div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">企业性质</label>
-                                    <div class="col-sm-4">
-                                        <select class="form-control m-b" id="sel_economy">
-                                          <option value="国有企业">国有企业</option>
-                                          <option value="集体企业">集体企业</option>
-                                          <option value="私营经济">私营经济</option>
-                                          <option value="个体经济">个体经济</option>
-                                          <option value="联营经济">联营经济</option>
-                                          <option value="股份制">股份制</option>
-                                          <option value="外商投资">外商投资</option>
-                                          <option value="港澳台投资">港澳台投资</option>
-                                          <option value="其他">其他</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-lg-2 control-label">安全风险等级</label>
-                                    <div class="col-sm-4">
-                                         <select class="form-control m-b" id="sel_RiskLevel">
-                                              <option value="1">1级</option>
-                                              <option value="2">2级</option>
-                                              <option value="3">3级</option>
-                                              <option value="4">4级</option>
-                                            </select>
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-lg-2 control-label">企业规模</label>
-                                    <div class="col-sm-4">
-                                         <select class="form-control m-b" id="sel_CompanyScale">
-                                              <option value="0-20人">0-20人</option>
-                                              <option value="20-99人">20-99人</option>
-                                              <option value="100-499人">100-499人</option>
-                                              <option value="500-999人">500-999人</option>
-                                              <option value="1000-9999人">1000-9999人</option>
-                                              <option value="10000人以上">10000人以上</option>
-                                            </select>
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">成立时间</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="ip_foundedTime">
-                                    </div>
-                                </div>
-                                 <div class="form-group"><label class="col-sm-2 control-label">发证时间</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="ip_issureTime">
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">企业行业</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="ip_industry">
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">行业代码</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="ip_industryCode">
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">法定代表人</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="ip_owner">
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">销售收入</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="ip_companyIncome">
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">分管安全负责人</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="ip_chiefSafeyName">
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">分管安全负责人电话</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="ip_chiefSafeyPhone">
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">安全生产管理机构负责人</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="ip_viceSafeyName">
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">安全生产管理机构负责人电话</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="ip_viceSafeyPhone">
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">安全值班电话</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="ip_onDutyPhone">
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">应急咨询电话</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="ip_emergencyPhone">
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">企业详情</label>
-                                    <div class="col-sm-4">
-                                        <textarea class="form-control" id="ip_companyDetail"> </textarea>
-                                    </div>
-                                </div>
+                            <div class="row">
+                                <div class="col-sm-8 b-r">
+                                    <form class="form-horizontal">
+                                        <div class="form-group"><label class="col-sm-3 control-label">公司名称</label>
+                                            <div class="col-sm-8"><input type="text" id="ip_companyName" class="form-control"></div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">行政区划</label>
+                                            <div class="col-sm-4">
+                                                <select id="sel_County" class="form-control" onchange="CountyChange()">
+                                                  <option value="230202" selected="selected">龙沙区</option>
+                                                  <option value="230203">建华区</option>
+                                                  <option value="230204">铁锋区</option>
+                                                  <option value="230205">昂昂溪区</option>
+                                                  <option value="230206">富拉尔基区</option>
+                                                  <option value="230207">碾子山区</option>
+                                                  <option value="230208">梅里斯达斡尔族区</option>
+                                                  <option value="230221">龙江县</option>
+                                                  <option value="230223">依安县</option>
+                                                  <option value="230224">泰来县</option>
+                                                  <option value="230225">甘南县</option>
+                                                  <option value="230227">富裕县</option>
+                                                  <option value="230229">克山县</option>
+                                                  <option value="230230">克东县</option>
+                                                  <option value="230231">拜泉县</option>
+                                                  <option value="230281" >讷河市</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-4"><input type="text" id="ip_adaddressDetail" placeholder="详细地址" class="form-control"></div>
+                                        </div>
+                                         <div class="form-group"><label class="col-sm-3 control-label">经纬度</label>
+                                            <div class="col-sm-4"><input type="text" id="ip_longitude" readonly="readonly" placeholder="经度" class="form-control"></div>
+                                            <div class="col-sm-4"><input type="text" id="ip_latitude" readonly="readonly" placeholder="纬度" class="form-control"></div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">邮编</label>
+                                            <div class="col-sm-8"><input type="text" id="ip_zipCode" class="form-control"></div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">企业性质</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control m-b" id="sel_economy">
+                                                  <option value="国有企业">国有企业</option>
+                                                  <option value="集体企业">集体企业</option>
+                                                  <option value="私营经济">私营经济</option>
+                                                  <option value="个体经济">个体经济</option>
+                                                  <option value="联营经济">联营经济</option>
+                                                  <option value="股份制">股份制</option>
+                                                  <option value="外商投资">外商投资</option>
+                                                  <option value="港澳台投资">港澳台投资</option>
+                                                  <option value="其他">其他</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">安全风险等级</label>
+                                            <div class="col-sm-8">
+                                                 <select class="form-control m-b" id="sel_RiskLevel">
+                                                      <option value="1">1级</option>
+                                                      <option value="2">2级</option>
+                                                      <option value="3">3级</option>
+                                                      <option value="4">4级</option>
+                                                    </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">企业规模</label>
+                                            <div class="col-sm-8">
+                                                 <select class="form-control m-b" id="sel_CompanyScale">
+                                                      <option value="0-20人">0-20人</option>
+                                                      <option value="20-99人">20-99人</option>
+                                                      <option value="100-499人">100-499人</option>
+                                                      <option value="500-999人">500-999人</option>
+                                                      <option value="1000-9999人">1000-9999人</option>
+                                                      <option value="10000人以上">10000人以上</option>
+                                                    </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">成立时间</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ip_foundedTime">
+                                            </div>
+                                        </div>
+                                         <div class="form-group"><label class="col-sm-3 control-label">发证时间</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ip_issureTime">
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">企业行业</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ip_industry">
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">行业代码</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ip_industryCode">
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">法定代表人</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ip_owner">
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">销售收入</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ip_companyIncome">
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">分管安全负责人</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ip_chiefSafeyName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">分管安全负责人电话</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ip_chiefSafeyPhone">
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">安全生产管理机构负责人</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ip_viceSafeyName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">安全生产管理机构负责人电话</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ip_viceSafeyPhone">
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">安全值班电话</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ip_onDutyPhone">
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">应急咨询电话</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ip_emergencyPhone">
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-3 control-label">企业详情</label>
+                                            <div class="col-sm-8">
+                                                <textarea class="form-control" id="ip_companyDetail"> </textarea>
+                                            </div>
+                                        </div>
 
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group" style="display: inline;">
-                                    <div>
-                                        <intput type="button" class="btn btn-default" id="btn_Cancel" onclick="Cancel()">取消</input>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group" style="display: inline;">
+                                            <div>
+                                                <intput type="button" class="btn btn-default" id="btn_Cancel" onclick="Cancel()">取消</input>
+                                            </div>
+                                            <div>
+                                                <intput type="button" onclick="SaveCompanyInfo()"  class="btn btn-primary" id="btn_Save">保存</intput>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div style="padding-left: 0px;width: 100%;margin-bottom: 10px;">
+                                            <input type="text" placeholder="请输入你想搜索的企业或地址" class="form-control" id="ip_search" />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <intput type="button" onclick="SaveCompanyInfo()"  class="btn btn-primary" id="btn_Save">保存</intput>
+                                    <div class="form-group">
+                                        <div class="col-sm-10" style="height:300px;width: 100%;" id="div_loaction">
+                                            
+                                        </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-lg-12">
+                    娃娃看天下
                 </div>
             </div>
         </div>
 
     <input type="hidden"  id="hid_actionType" value="0" />
     <input type="hidden"  id="hid_companyId" value="0" />
+    <input type="hidden"  id="hid_county" />
     <!-- Mainly scripts -->
     <script src="/js/jquery-2.1.1.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -218,8 +231,48 @@
     <script src="/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/js/common.js"></script>
     <script src="/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.2&key=682be051dc164d7c0f0a5b008ee726f3&plugin=AMap.Autocomplete"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
 
     <script>
+
+        var map = new AMap.Map("div_loaction", {
+            zoom: 15,
+            center: [123.951848,47.34236]
+        });
+
+        AMap.plugin('AMap.Geocoder',function(){
+            var geocoder = new AMap.Geocoder({
+                city: "230200"//城市齐齐哈尔
+            });
+            map.on('click',function(e){
+                geocoder.getAddress(e.lnglat,function(status,result){
+                  if(status=='complete'){
+                    $("#sel_County").val(result.regeocode.addressComponent.adcode);
+                    $("#ip_adaddressDetail").val(result.regeocode.formattedAddress);
+                  }
+                })
+            })
+        });
+
+        //为地图注册click事件获取鼠标点击出的经纬度坐标
+        var clickEventListener = map.on('click', function(e) {
+            $("#ip_longitude").val(e.lnglat.getLng());
+            $("#ip_latitude").val(e.lnglat.getLat());
+        });
+        var auto = new AMap.Autocomplete({
+            input: "ip_search"
+        });
+        AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
+
+        function select(e) {
+            if (e.poi && e.poi.location) {
+                map.setZoom(15);
+                map.setCenter(e.poi.location);
+            }
+        }
+
+
         $(document).ready(function(){
             //判断新增or编辑
             var actionType=getUrlParam("actionType");
@@ -251,6 +304,11 @@
                 autoclose: true
             });
        });
+
+        function CountyChange(){
+            var county = $("#sel_County").find("option:selected").text();
+            $("#hid_county").val(county);
+        }
 
         function Cancel(){
             $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyList.html");

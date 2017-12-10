@@ -131,61 +131,23 @@
                                 <div class="panel-body">
 
                                     <div class="table-responsive">
-                                        <table class="table table-stripped table-bordered">
+                                        <table class="table table-stripped table-bordered" id="tb_dangerousProductDetail">
 
                                             <thead>
                                             <tr>
                                                 <th>
-                                                    Group
+                                                    名称
                                                 </th>
-                                                <th>
-                                                    Quantity
+                                                <th style="width: 45%">
+                                                    专家意见
                                                 </th>
-                                                <th>
-                                                    Discount
-                                                </th>
-                                                <th style="width: 20%">
-                                                    Date start
-                                                </th>
-                                                <th style="width: 20%">
-                                                    Date end
-                                                </th>
-                                                <th>
-                                                    Actions
+                                                <th style="width: 45%">
+                                                   管控预案措施
                                                 </th>
                                             </tr>
                                             </thead>
 
                                             <tbody>
-                                            <tr>
-                                                <td>
-                                                    <select class="form-control" >
-                                                        <option selected>Group 1</option>
-                                                        <option>Group 2</option>
-                                                        <option>Group 3</option>
-                                                        <option>Group 4</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" placeholder="10">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" placeholder="$10.00">
-                                                </td>
-                                                <td>
-                                                    <div class="input-group date">
-                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="07/01/2014">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group date">
-                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="07/01/2014">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
-                                                </td>
-                                            </tr>
                                             </tbody>
 
                                         </table>
@@ -242,9 +204,12 @@
                 if(result.code==0){
                     $.each(result.data,function(index,item){
                         var info = [];
+                        var infoDetail = [];
                         info.push("<tr>");
+                        infoDetail.push("<tr>");
                         info.push("<td>"+item.regesterId+"</td>");
                         info.push("<td>"+item.productName+"</td>");
+                        infoDetail.push("<td>"+item.productName+"</td>");
                         info.push("<td>"+item.aliasName+"</td>");
                         info.push("<td>"+item.productAttributes+"</td>");
                         info.push("<td>"+item.manufacturability+"</td>");
@@ -255,7 +220,11 @@
                         info.push("<td>"+(item.isToxicity=="1"?"是":"否")+"</td>");
                         info.push("<td>"+item.instructions+"</td>");
                         info.push("</tr>");
+                        infoDetail.push("<td>"+item.expertOpinion+"</td>");
+                        infoDetail.push("<td>"+item.managementPlan+"</td>");
+                        infoDetail.push("</tr>");
                         $("#tb_dangerousProduct tbody").prepend(info.join(""));
+                        $("#tb_dangerousProductDetail tbody").prepend(infoDetail.join(""));
                     });
                 }
             });
