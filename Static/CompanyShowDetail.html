@@ -1,205 +1,285 @@
-<!DOCTYPE html>
+!<!DOCTYPE html>
 <html>
-
 <head>
+    <title>企业信息详情</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>齐齐哈尔市安全生产应急救援平台风险管控系统</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <!-- Data Tables -->
-    <link href="/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-    <link href="/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
-    <link href="/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+    <link href="/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
 
+    <style type="text/css">
+        .span_title{
+            font-weight: bold;
+        }
+        .span_content{
+            margin-left: 20px;
+        }
+        .m-t-md{
+            margin-top: 5px;
+            margin-left: 10px;
+        }
+        .div_sptitle{
+            display: inline-block;
+            width: 100px;
+        }
+    </style>
 </head>
-
 <body>
 
-    <div id="wrapper">
-        <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
+    <div class="fadeInRight ecommerce">
+
+        <div class="row">
+            <div>
+                <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1">企业基本信息</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2"> 重大危险源信息</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-3"> 风险管控信息</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="panel-body">
+
+                                    <fieldset class="form-horizontal">
+                                        <div class="col-md-7">
+                                            <h3>基本信息</h3>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">行政区</span></div><span class="span_content">黑龙江省齐齐哈尔市龙江县</span></div>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">详细地址</span></div><span class="span_content">龙江县龙南大道500号</span></div>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">邮编</span></div><span class="span_content">236005</span></div>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">单位性质</span></div><span class="span_content">国有大型企业</span></div>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">安全风险等级</span></div><span class="span_content">2级</span></div>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">成立时间</span></div><span class="span_content">1993-02-10</span></div>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">发证时间</span></div><span class="span_content">1998-02-10</span></div>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">行业类型</span></div><span class="span_content">服务业</span></div>
+                                            <hr>
+                                            <h3>经营信息</h3>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">企业规模</span></div><span class="span_content">150-500人</span></div>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">销售收入</span></div><span class="span_content">15-20 亿</span></div>
+                                            <hr>
+                                            <h3>安全负责人信息</h3>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">法人名称</span></div><span class="span_content">张潇</span></div>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">分管安全负责人</span></div><span class="span_content">张老三(18721121320)</span></div>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">安全生产管理机构负责人</span></div><span class="span_content">王老五(13025896325)</span></div>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">安全值班电话</span></div><span class="span_content">15936523987</span></div>
+                                                <div class="m-t-md div_spmain"><div class="div_sptitle"><span class="span_title">应急咨询电话</span></div><span class="span_content">18965789326</span></div>
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                <div class="panel-body">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-stripped table-bordered" id="tb_dangerousProduct">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    登记号
+                                                </th>
+                                                <th>
+                                                    名称
+                                                </th>
+                                                <th>
+                                                    别名
+                                                </th>
+                                                <th>
+                                                   危险源属性
+                                                </th>
+                                                <th>
+                                                    生产能力(吨)
+                                                </th>
+                                                <th>
+                                                   最大储量(吨)
+                                                </th>
+                                                <th>
+                                                   年生产量(吨)
+                                                </th>
+                                                <th>
+                                                   CAS
+                                                </th>
+                                                <th>
+                                                   UN
+                                                </th>
+                                                <th>
+                                                   剧毒
+                                                </th>
+                                                <th>
+                                                   安全技术说明书
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="tab-3" class="tab-pane">
+                                <div class="panel-body">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-stripped table-bordered">
+
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    Group
+                                                </th>
+                                                <th>
+                                                    Quantity
+                                                </th>
+                                                <th>
+                                                    Discount
+                                                </th>
+                                                <th style="width: 20%">
+                                                    Date start
+                                                </th>
+                                                <th style="width: 20%">
+                                                    Date end
+                                                </th>
+                                                <th>
+                                                    Actions
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <select class="form-control" >
+                                                        <option selected>Group 1</option>
+                                                        <option>Group 2</option>
+                                                        <option>Group 3</option>
+                                                        <option>Group 4</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="10">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="$10.00">
+                                                </td>
+                                                <td>
+                                                    <div class="input-group date">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="07/01/2014">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group date">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="07/01/2014">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="">
-                            <a onclick="AddCompanyInfo();" href="javascript:void(0);" class="btn btn-primary ">新增企业信息</a>
-                        </div>
-                        <table class="table table-striped table-bordered table-hover " id="editable" >
-                            <thead>
-                                <tr>
-                                    <th>公司名称</th>
-                                    <th>公司法人</th>
-                                    <th>安全等级</th>
-                                    <th>所属行业</th>
-                                    <th>经济类型</th>
-                                    <th>成立时间</th>
-                                    <th>发证时间</th>
-                                    <th>详细地址</th>
-                                    <th>分管安全负责人</th>
-                                    <th>分管安全负责人电话</th>
-                                    <th>生产机构负责人</th>
-                                    <th>生产机构负责人电话</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
                 </div>
             </div>
-            </div>
         </div>
+
     </div>
 
+<!-- Mainly scripts -->
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="/js/inspinia.js"></script>
+<script src="/js/plugins/pace/pace.min.js"></script>
+<script src="/js/common.js"></script>
 
-    <!-- Mainly scripts -->
-    <script src="/js/jquery-2.1.1.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="/js/plugins/jeditable/jquery.jeditable.js"></script>
+<script type="text/javascript">
+    
+    $(function(){
+        //获得url传参
+        var companyId = getUrlParam("companyId");
+        if(companyId!=null && companyId!=""){
+            GetCompanyDetailInfo(companyId,function(result){
+                if(result.code==0){
+                    var spanContentContrainer= $(".span_content");
+                    spanContentContrainer[0].innerHTML=result.data.provice+result.data.county+result.data.county;
+                    spanContentContrainer[1].innerHTML=result.data.addressDetail;
+                    spanContentContrainer[2].innerHTML=(result.data.zipCode==""?"无":result.data.zipCode);
+                    spanContentContrainer[3].innerHTML=(result.data.economy==""?"无":result.data.economy);  //单位性质
+                    spanContentContrainer[4].innerHTML=(result.data.riskLevel+"级");  //安全风险
+                    spanContentContrainer[5].innerHTML=result.data.foundedTime;  //成立时间
+                    spanContentContrainer[6].innerHTML=result.data.issureTime;  //发证时间
+                    spanContentContrainer[7].innerHTML=result.data.industry;  //行业
+                    spanContentContrainer[8].innerHTML=(result.data.companyScale==""?"无":result.data.companyScale);
+                    spanContentContrainer[9].innerHTML=(result.data.companyIncome==""?"无":result.data.companyIncome);
+                    spanContentContrainer[10].innerHTML=result.data.owner ;  
+                    spanContentContrainer[11].innerHTML=result.data.chiefSafeyName+"("+result.data.chiefSafeyPhone+")" ;  //安全负责人
+                    spanContentContrainer[12].innerHTML=result.data.viceSafeyName+"("+result.data.viceSafeyPhone+")" ;  //安全机构负责人
+                    spanContentContrainer[13].innerHTML=(result.data.onDutyPhone==""?"无":result.data.zipCode);   //值班电话
+                    spanContentContrainer[14].innerHTML=(result.data.emergencyPhone==""?"无":result.data.emergencyPhone) ;   //应急咨询电话
+                }
+            })
 
-    <!-- Data Tables -->
-    <script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
-    <script src="/js/plugins/dataTables/dataTables.responsive.js"></script>
-    <script src="/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="/js/inspinia.js"></script>
-    <script src="/js/plugins/pace/pace.min.js"></script>
-    <script src="/js/common.js"></script>
-
-    <style>
-
-    </style>
-
-    <!-- Page-Level Scripts -->
-    <script>
-        $(document).ready(function() {
-            /* Init DataTables */
-            var oTable = $('#editable').DataTable({
-                 language: {
-                    "sProcessing": "处理中...",
-                    "sLengthMenu": "显示 _MENU_ 项结果",
-                    "sZeroRecords": "没有匹配结果",
-                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-                    "sInfoPostFix": "",
-                    "sSearch": "企业名称:",
-                    "sUrl": "",
-                    "sEmptyTable": "表中数据为空",
-                    "sLoadingRecords": "载入中...",
-                    "sInfoThousands": ",",
-                    "oPaginate": {
-                        "sFirst": "首页",
-                        "sPrevious": "上页",
-                        "sNext": "下页",
-                        "sLast": "末页"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": 以升序排列此列",
-                        "sSortDescending": ": 以降序排列此列"
-                    }
-                },
-                "ordering": false, //禁止排序
-                "bLengthChange": false,
-                "bPaginate": true, //翻页功能
-                "serverSide": true,  //启用服务器端分页
-                "pageLength":10,
-                "tabIndex": 1,
-                ajax: function (data, callback, settings) {
-                    //封装请求参数
-                    var param = {};
-                    param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
-                    param.currentPage = (data.start / data.length)+1;//当前页码
-                    param.companyName = (data.search.value==null?"":data.search.value);//企业名称
-
-                    //ajax请求数据
-                    GetPageCompanyInfo(param,function(result){
-                        if(result.code=="0"){
-                            var pageData= result.data;
-                            setTimeout(function () {
-                                //封装返回数据
-                                var returnData = {};
-                                returnData.recordsFiltered = pageData.totalCounts; 
-                                returnData.recordsTotal = pageData.totalCounts;//返回数据全部记录
-                                returnData.data = pageData.items;//返回的数据列表
-                                //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
-                                callback(returnData);
-
-                            }, 200);
-                        }
-                    })
-                },
-                //列表表头字段
-                columns: [
-                    { "data": "companyName" },
-                    { "data": "owner" },
-                    { "data": "owner" },
-                    { "data": "riskLevel" },
-                    { "data": "industry" },
-                    { "data": "economy" },
-                    { "data": "foundedTime" },
-                    { "data": "issureTime" },
-                    { "data": "chiefSafeyName" },
-                    { "data": "chiefSafeyPhone" },
-                    { "data": "viceSafeyName" },
-                    { "data": "viceSafeyPhone" },
-                    {  
-                        "data": null,  
-                        "orderable": false,  
-                        "render": function ( data, type, full, meta ) {  
-                            return GetEditButtonStr(data.id);  
-                        }  
-                    }  
-                ]
-            });
-        });
-
-        function GetEditButtonStr(companyId){
-            return '<div class="btn-group"><button class="btn-white btn btn-xs" onclick="EditCompany(\''+companyId+'\')">编辑</button><button class="btn-white btn btn-xs" onclick="ManageDanerousProduct(\''+companyId+'\')">危险源信息</button></div>';
-        }
-
-        function GetPageCompanyInfo(param,callback){
-            var uri = '/companies/pageinfo?currentPage='+param.currentPage+'&pageSize='+param.pageSize+'&companyName='+param.companyName;
-            doGet(uri,function(res){
-                if (callback) {
-                    callback(res);
+            //获得危险源信息
+            GetDangerousProductDetail(companyId,function(result){
+                if(result.code==0){
+                    $.each(result.data,function(index,item){
+                        var info = [];
+                        info.push("<tr>");
+                        info.push("<td>"+item.regesterId+"</td>");
+                        info.push("<td>"+item.productName+"</td>");
+                        info.push("<td>"+item.aliasName+"</td>");
+                        info.push("<td>"+item.productAttributes+"</td>");
+                        info.push("<td>"+item.manufacturability+"</td>");
+                        info.push("<td>"+item.productReserve+"</td>");
+                        info.push("<td>"+item.yearProduct+"</td>");
+                        info.push("<td>"+item.cas+"</td>");
+                        info.push("<td>"+item.un+"</td>");
+                        info.push("<td>"+(item.isToxicity=="1"?"是":"否")+"</td>");
+                        info.push("<td>"+item.instructions+"</td>");
+                        info.push("</tr>");
+                        $("#tb_dangerousProduct tbody").prepend(info.join(""));
+                    });
                 }
             });
         }
+    })
 
-        function AddCompanyInfo(){
-            $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyEdit.html?actionType=add");
-        }
-        function EditCompany(companyId){
-            $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyEdit.html?actionType=edit&companyId="+companyId);
-        }
-        //管理危险源信息
-        function ManageDanerousProduct(companyId){
-            $("#iframe_DashBoard",parent.document).attr('src',"/Static/DangerousProductList.html?companyId="+companyId);
-        }
-    </script>
+    function GetCompanyDetailInfo(companyId,callback){
+        var uri = '/companies/'+companyId;
+        doGet(uri,function(res){
+            if (callback) {
+                callback(res);
+            }
+        });
+    }
+      function GetDangerousProductDetail(companyId,callback){
+        var uri = '/dangerousproducts?companyId='+companyId;
+        doGet(uri,function(res){
+            if (callback) {
+                callback(res);
+            }
+        });
+    }
+
+</script>
 
 </body>
-
 </html>
-
-
-

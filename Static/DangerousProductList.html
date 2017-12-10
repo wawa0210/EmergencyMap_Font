@@ -195,8 +195,8 @@
             })
         });
 
-        function GetEditButtonStr(companyId){
-        	return '<div class="btn-group"><button class="btn-white btn btn-xs" onclick="EditDangerousProduct(\''+companyId+'\')">编辑</button></div>';
+        function GetEditButtonStr(dangerousId){
+        	return '<div class="btn-group"><button class="btn-white btn btn-xs" onclick="EditDangerousProduct(\''+dangerousId+'\')">编辑</button></div>';
         }
 
         function GetPageDangerousProductInfo(param,callback){
@@ -212,10 +212,10 @@
             $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyList.html");
         }
         function AddDangerousProduct(){
-        	$("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyEdit.html?actionType=add");
+        	$("#iframe_DashBoard",parent.document).attr('src',"/Static/DangerousProductEdit.html?actionType=add&companyId="+companyId);
         }
-        function EditDangerousProduct(companyId){
-        	$("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyEdit.html?actionType=edit&companyId="+companyId);
+        function EditDangerousProduct(dangerousId){
+        	$("#iframe_DashBoard",parent.document).attr('src',"/Static/DangerousProductEdit.html?actionType=edit&companyId="+companyId +"&dangerousId="+dangerousId);
         }
         //管理危险源信息
   		function ManageDanerousProduct(companyId){
