@@ -40,12 +40,12 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <form class="form-horizontal">
+                            <form class="form-horizontal" id="form_DangerousProduct">
                                 <div class="form-group"><label class="col-sm-2 control-label">登记号</label>
                                     <div class="col-sm-4"><input type="text" id="ip_regesterId" class="form-control"></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">危险源名称</label>
-                                    <div class="col-sm-4"><input type="text" id="ip_productName" class="form-control"></div>
+                                    <div class="col-sm-4"><input type="text" id="ip_productName" name="productName" class="form-control" required></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">别名</label>
                                     <div class="col-sm-4">
@@ -60,7 +60,7 @@
                                 <div class="form-group"><label class="col-sm-2 control-label">生产能力</label>
                                     <div class="col-sm-4">
                                         <div class="input-group m-b">
-                                            <input type="text" class="form-control" id="ip_manufacturability">
+                                            <input type="text" class="form-control" name="manufacturability" id="ip_manufacturability">
                                             <span class="input-group-addon">吨</span>
                                         </div>
                                     </div>
@@ -68,7 +68,7 @@
                                 <div class="form-group"><label class="col-sm-2 control-label">最大储量</label>
                                     <div class="col-sm-4">
                                         <div class="input-group m-b">
-                                            <input type="text" class="form-control" id="ip_productReserve">
+                                            <input type="text" class="form-control" name="productReserve" id="ip_productReserve">
                                             <span class="input-group-addon">吨</span>
                                         </div>
                                     </div>
@@ -76,7 +76,7 @@
                                 <div class="form-group"><label class="col-sm-2 control-label">年生产量</label>
                                     <div class="col-sm-4">
                                         <div class="input-group m-b">
-                                            <input type="text" class="form-control" id="ip_yearProduct">
+                                            <input type="text" class="form-control" id="ip_yearProduct" name="yearProduct">
                                             <span class="input-group-addon">吨</span>
                                         </div>
                                     </div>
@@ -148,6 +148,7 @@
 
     <script>
         var companyId="";
+        var validator;
         $(document).ready(function(){
             //判断新增or编辑
             var actionType=getUrlParam("actionType");
@@ -165,6 +166,30 @@
                 $("#hid_dangerousId").val(dangerousId);
                 $("#hid_actionType").val("1");
             }
+
+            validator = $("#form_DangerousProduct").validate({  
+                rules: {  
+                    productName: { required: true},
+                    manufacturability: { required: true},
+                    productReserve: { required: true},
+                    yearProduct: { required: true}
+                },  
+                messages: {  
+                    productName: {  
+                        required: "危险源名称不能为空"
+                    },
+                    manufacturability: {  
+                        required: "生产能力不能为空"
+                    } ,
+                    productReserve: {  
+                        required: "最大储量不能为空"
+                    } ,
+                    yearProduct: {  
+                        required: "年生产量不能为空"
+                    } 
+                }  
+            }); 
+
        });
 
         function Cancel(){
@@ -172,6 +197,16 @@
         }
 
         function SaveDangerousProductInfo(){
+
+            var formInfo = $("#form_DangerousProduct");
+            // Disable validation on fields that are disabled or hidden.
+            formInfo.validate().settings.ignore = ":disabled,:hidden";
+            // Start validation; Prevent going forward if false
+            if(!formInfo.valid()){
+                validator.focusInvalid();
+                return false;
+            }
+
             var dangerousproduct ={};
                 dangerousproduct.id = $("#hid_dangerousId").val();
                 dangerousproduct.regesterId = $("#ip_regesterId").val();
