@@ -46,6 +46,7 @@
                   if(userName!==null && userPwd !=null){
                          var uri = '/auth/token';
                          var data =  {"userName": userName,"userPwd": userPwd};
+                         data = JSON.stringify(data);
                          doPost(uri, data, function (res) {
                               if(res!=null && res.code==0){
                                 localStorage.setItem('userinfo', res.data.userInfo);
@@ -59,7 +60,7 @@
                               else{
                                 alert("登录失败，请重新登录!");
                               }
-                        });
+                        },"json");
                   }
                   else{
                     alert("账户信息不能为空!");

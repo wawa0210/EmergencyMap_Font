@@ -206,12 +206,13 @@
 
         function DangerousProductInfo(params,callback){
             var uri = '/dangerousproducts';
+            params = JSON.stringify(params);
             if($("#hid_actionType").val()=="0"){
                 doPost(uri,params,function(res){
                    if (callback) {
                           callback(res);
                       }
-                });
+                },"json");
             }
             else{
                 //编辑
@@ -219,7 +220,7 @@
                    if (callback) {
                           callback(res);
                       }
-                });
+                },"json");
             }
         }
 
