@@ -164,8 +164,17 @@
         "#651067", "#329262", "#5574a6", "#3b3eac"
     ];
 
-    //齐齐哈尔的区划编码
-    LoadSpecifyDistrict(230200);
+    var countyRiskLevel = [];
+
+    GetCompanyRiskInfo(function(result){
+      
+      if(result.code=="0"){
+        countyRiskLevel = result.data;
+        //齐齐哈尔的区划编码
+        LoadSpecifyDistrict(230200);
+      }
+    })
+    
 
     function LoadSpecifyDistrict(adCode){
       //加载DistrictExplorer，loadUI的路径参数为模块名中 'ui/' 之后的部分 
@@ -200,13 +209,13 @@
 
        //just some colors
        var colors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00"];
+       var fillcolors = ["red", "orange","yellow","blue"];
 
        //绘制子级区划
        districtExplorer.renderSubFeatures(areaNode, function(feature, i) {
-
-          var fillColor = colors[i % colors.length];
+          var index = GetCountyRiskLevel(feature.properties.adcode);
+          var fillColor = fillcolors[index-1];
           var strokeColor = colors[colors.length - 1 - i % colors.length];
-
           return {
              cursor: 'default',
              bubble: true,
@@ -311,6 +320,30 @@
                         // }
                         callback(res);
                     }
+        });
+    }
+
+    function GetCountyRiskLevel(adCode){
+      var result =4;
+      $.each(countyRiskLevel,function(index,item){
+        if(adCode ==  item.countyCode){
+          result = item.minRiskLevel;
+        }
+      })
+      return result;
+    }
+
+    //获取区县风险等级信息
+    function GetCompanyRiskInfo(callback){
+        var uri = '/companies/counties';
+        doGet(uri,function(res){
+           if (callback) {
+                  //如果选择指定位置，则渲染该区域
+                  // if(countryCode!="0"){
+                  //   LoadSpecifyDistrict(countryCode);
+                  // }
+                  callback(res);
+              }
         });
     }
 
