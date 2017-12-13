@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -38,7 +37,7 @@
 		            </div>
 		            <div class="ibox-content">
 			            <div class="">
-			            	<a onclick="AddCompanyInfo();" href="javascript:void(0);" class="btn btn-primary ">新增账户信息</a>
+			            	<a onclick="AddManagerInfo();" href="javascript:void(0);" class="btn btn-primary ">新增账户信息</a>
 			            </div>
 			            <table class="table table-striped table-bordered table-hover " id="editable" >
 				            <thead>
@@ -190,26 +189,30 @@
 			    ok: function(){
 			    	DeleteManagerInfo(id,function(result){
 			    		if(result.code=="0"){
+			    			if(result.data=="删除成功"){
+			    				alert("删除成功！");
+			    				$("#iframe_DashBoard",parent.document).attr('src',"/Static/ManagerList.html");
+			    			}
 			    		}
 			    	})
 			    },
 			    cancel:function(){
-			    	alert('wawa');
 			    }
 			});
         }
 
          function DeleteManagerInfo(id,callback){
-    	  	var uri = '/companies/delete';
-    	  	var companyInfo ={};
-            companyInfo.id = companyId;
-            data = JSON.stringify(companyInfo);
+         	debugger;
+    	  	var uri = '/accounts/delete';
+    	  	var managerInfo ={};
+            managerInfo.id = id;
+            data = JSON.stringify(managerInfo);
 
             doPost(uri,data,function(res){
                 if (callback) {
                     callback(res);
                 }
-            });
+            },"json");
         }
     </script>
 
