@@ -65,9 +65,18 @@
                                 <span class="m-r-sm text-muted welcome-message">齐齐哈尔市安全生产应急救援平台风险管控系统</span>
                             </li>
                             <li>
+                                <!-- 
                                 <a onclick="Loginout()">
                                     <i class="fa fa-sign-out"></i> 退出系統
-                                </a>
+                                </a> -->
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear"><span class=" fa text-muted text-xs block fa-tasks"></span> </span> </a>
+                                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                    <li><a onclick="ModifyPwd()">修改密码</a></li>
+                                    <li class="divider"></li>
+                                    <li><a onclick="Loginout()">退出系統</a></li>
+                                </ul>
+
                             </li>
                         </ul>
                 </nav>
@@ -157,6 +166,18 @@
             $.removeCookie("token");
             $.removeCookie("userid");
             window.location.href = "login.html";
+        }
+
+        //修改密码
+        function ModifyPwd(){
+            var userId = localStorage.getItem("userId");
+            if(userId=="")
+            {
+                Loginout();
+            }
+            else{
+                $("#iframe_DashBoard").attr('src',"/Static/ModifyPwd.html?managerId="+userId);
+            }
         }
   </script>
 </body>
