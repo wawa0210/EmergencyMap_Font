@@ -101,7 +101,7 @@
            Loginout();
         }
 
-        function SaveManagerInfo(){
+        function SaveUserPwd(){
             var formInfo = $("#form_managerInfo");
             // Disable validation on fields that are disabled or hidden.
             formInfo.validate().settings.ignore = ":disabled,:hidden";
@@ -110,7 +110,7 @@
                 validator.focusInvalid();
                 return false;
             }
-
+            
             var managerInfo ={};
                 managerInfo.id = $("#hid_managerId").val();
                 managerInfo.userName = $("#ip_userName").val();

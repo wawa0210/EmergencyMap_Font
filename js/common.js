@@ -64,6 +64,11 @@ function doPut(baseUrl, data, callback, contentType, showtips) {
     doRequest(requestUri, "PUT", data, callback, contentType);
 }
 
+function doDelete(baseUrl, data, callback, contentType, showtips) {
+    var requestUri = WebApiHost + "v0" + baseUrl;
+    doRequest(requestUri, "Delete", data, callback, contentType);
+}
+
 //获取url中的参数
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象

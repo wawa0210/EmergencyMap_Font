@@ -92,7 +92,11 @@
         $(document).ready(function() {
             /* Init DataTables */
             var oTable = $('#editable').DataTable({
-            	 language: {
+            	// "dom": 'lTfigt',
+                // "tableTools": {
+                //     "sSwfPath": "/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+                // },
+            	language: {
 			        "sProcessing": "处理中...",
 			        "sLengthMenu": "显示 _MENU_ 项结果",
 			        "sZeroRecords": "没有匹配结果",
@@ -130,7 +134,7 @@
 	                param.companyName = (data.search.value==null?"":data.search.value);//企业名称
 
 	                //ajax请求数据
-	                GetPageMangerInfo(param,function(result){
+	                GetPageCompanyInfo(param,function(result){
 	                	if(result.code=="0"){
 	                		var pageData= result.data;
 	                		setTimeout(function () {
@@ -171,14 +175,63 @@
             });
         });
 
-             function GetPageMangerInfo(param,callback){
-    	  	var uri = '/accounts?userName='+param.userName+'&currentPage='+param.currentPage+'&pageSize='+param.pageSize;
-            doGet(uri,function(res){
-                if (callback) {
-                    callback(res);
+        function GetEditButtonStr(companyId,companyName){
+            return '<div class="btn-group"><button class="btn-white btn btn-xs" onclick="EditCompany(\''+companyId+'\')">编辑</button><button class="btn-danger btn btn-xs" onclick="DeleteCompany(\''+companyId+'\')">删除</button><button class="btn-primary btn btn-xs" onclick="ManageDanerousProduct(\''+companyId+'\',\''+companyName+'\')">危险源信息</button></div>';
+        }
+
+
+	    function GetPageCompanyInfo(param,callback){
+		  	var uri = '/companies/pageinfo?companyName='+param.companyName+'&currentPage='+param.currentPage+'&pageSize='+param.pageSize;
+		    doGet(uri,function(res){
+		        if (callback) {
+		            callback(res);
+		        }
+		    });
+        }
+
+        function AddCompanyInfo(){
+            $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyEdit.html?actionType=add");
+        }
+        function EditCompany(companyId){
+            $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyEdit.html?actionType=edit&companyId="+companyId);
+        }
+        //管理危险源信息
+          function ManageDanerousProduct(companyId,companyName){
+            $("#iframe_DashBoard",parent.document).attr('src',"/Static/DangerousProductList.html?companyId="+companyId+"&companyName="+companyName);
+        }
+        //删除公司信息
+        function DeleteCompany(companyId){
+            var dialog = art.dialog({
+                title: '删除企业信息',
+                content: '删除企业信息，同时将删除其危险源信息，请慎重！',
+                lock:true,
+                ok: function(){
+                    DeleteCompanyInfo(companyId,function(result){
+                        if(result.code=="0"){
+                        	alert('删除成功')
+                        }
+                        else{
+                        	alert("删除失败！")
+                        }
+                        $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyList.html");
+                    })
+                },
+                cancel:function(){
+                    alert('wawa');
                 }
             });
         }
+
+         function DeleteCompanyInfo(companyId,callback){
+            var uri = '/companies/'+companyId;
+
+            doDelete(uri,null,function(res){
+                if (callback) {
+                    callback(res);
+                }
+            },"json");
+        }
+
     </script>
 
 </body>
