@@ -194,6 +194,9 @@
 			    				$("#iframe_DashBoard",parent.document).attr('src',"/Static/ManagerList.html");
 			    			}
 			    		}
+			    		else{
+			    			alert(result.message);
+			    		}
 			    	})
 			    },
 			    cancel:function(){
@@ -202,7 +205,6 @@
         }
 
          function DeleteManagerInfo(id,callback){
-         	debugger;
     	  	var uri = '/accounts/delete';
     	  	var managerInfo ={};
             managerInfo.id = id;
