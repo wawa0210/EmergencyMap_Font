@@ -58,7 +58,6 @@
         </div>
     </div>
 
-
     <!-- Mainly scripts -->
     <script src="/js/jquery-2.1.1.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -78,10 +77,16 @@
     <script src="/js/common.js"></script>
 	<script src="/js/plugins/artdialog/jquery.artDialog.js?skin=brief"></script>
   	<script src="/js/plugins/artdialog/plugins/iframeTools.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
 
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function() {
+        	var userId = localStorage.getItem("userid");
+            if(userId=="")
+            {
+                Loginout();
+            }
             /* Init DataTables */
             var oTable = $('#editable').DataTable({
             	 language: {
@@ -173,13 +178,44 @@
         }
 
         function GetEditButtonStr(id){
-        	return '<div class="btn-group"><button class="btn-danger btn btn-xs" onclick="DeleteManager(\''+id+'\')">删除</button></div>';
+        	var buttonStr ='<div class="btn-group"><button class="btn-danger btn btn-xs" onclick="DeleteManager(\''+id+'\')">删除</button>';
+        	//超级管理员才能编辑用户信息
+        	if(localStorage.getItem("userid")=="14E1952B-F674-4EE9-BD18-D4EB2F71084B"){
+        		buttonStr += '<button class="btn-danger btn btn-xs" onclick="DeleteManager(\''+id+'\')">编辑</button>';
+        		buttonStr += '<button class="btn-danger btn btn-xs" onclick="ResetManagerPwd(\''+id+'\')">重置密码</button>';
+        	}
+        	buttonStr += '</div>';
+        	return buttonStr;
         }
 
         function AddManagerInfo(){
         	$("#iframe_DashBoard",parent.document).attr('src',"/Static/ManagerEdit.html?actionType=add");
         }
 
+		//删除公司信息
+        function ResetManagerPwd(id){
+        	var dialog = art.dialog({
+			    title: '重置密码',
+			    content: '你确认将该管理员密码重置成(111111)么？',
+			    lock:true,
+			    ok: function(){
+			    	var managerInfo ={};
+	                managerInfo.id = id;
+	                managerInfo.userPwd = '111111';
+			    	ResetManagerPwdInfo(managerInfo,function(result){
+			    		if(result.code=="0"){
+		    				alert("重置成功！");
+		    				$("#iframe_DashBoard",parent.document).attr('src',"/Static/ManagerList.html");
+			    		}
+			    		else{
+			    			alert(result.message);
+			    		}
+			    	})
+			    },
+			    cancel:function(){
+			    }
+			});
+        }
         //删除公司信息
         function DeleteManager(id){
         	var dialog = art.dialog({
@@ -204,16 +240,14 @@
 			});
         }
 
-         function DeleteManagerInfo(id,callback){
-    	  	var uri = '/accounts/delete';
-    	  	var managerInfo ={};
-            managerInfo.id = id;
-            data = JSON.stringify(managerInfo);
-
-            doPost(uri,data,function(res){
-                if (callback) {
-                    callback(res);
-                }
+        function ResetManagerPwdInfo(params,callback){
+            var uri = '/accounts/pwd';
+            params = JSON.stringify(params);
+            //编辑
+            doPut(uri,params,function(res){
+               if (callback) {
+                      callback(res);
+                  }
             },"json");
         }
     </script>
