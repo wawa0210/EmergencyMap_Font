@@ -15,6 +15,7 @@
     <link href="/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
     <link href="/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
     <link href="/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+    <link href="/css/plugins/dataTables/buttons.dataTables.min.css" rel="stylesheet">
 
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
@@ -75,10 +76,17 @@
     <script src="/js/plugins/jeditable/jquery.jeditable.js"></script>
 
     <!-- Data Tables -->
-    <script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/js/plugins/dataTables/jquery.dataTables.min.js"></script>
     <script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
     <script src="/js/plugins/dataTables/dataTables.responsive.js"></script>
     <script src="/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+    <script src="/js/plugins/dataTables/dataTables.buttons.min.js"></script>
+    <script src="/js/plugins/dataTables/buttons.flash.min.js"></script>
+    <script src="/js/plugins/dataTables/buttons.html5.min.js"></script>
+    <script src="/js/plugins/dataTables/buttons.print.min.js"></script>
+    <script src="/js/plugins/dataTables/jszip.min.js"></script>
+    <script src="/js/plugins/dataTables/pdfmake.min.js"></script>
+    <script src="/js/plugins/dataTables/vfs_fonts.js"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="/js/inspinia.js"></script>
@@ -92,10 +100,10 @@
         $(document).ready(function() {
             /* Init DataTables */
             var oTable = $('#editable').DataTable({
-            	// "dom": 'lTfigt',
-                // "tableTools": {
-                //     "sSwfPath": "/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
-                // },
+            	dom: 'Bfrtip',
+		        buttons: [
+		            'copy', 'csv', 'excel', 'pdf', 'print'
+		        ],
             	language: {
 			        "sProcessing": "处理中...",
 			        "sLengthMenu": "显示 _MENU_ 项结果",
