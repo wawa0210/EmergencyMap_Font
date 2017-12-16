@@ -30,7 +30,7 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>账户信息编辑(初始账户密码为111111)</small></h5>
+                            <h5 id="h_title">账户信息编辑(初始账户密码为111111)</small></h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
@@ -108,10 +108,12 @@
                 $("#hid_actionType").val("0");
             }
             else{
-                var managerId = getUrlParam("managerId");
+                $("#h_title").html('账户信息编辑');
+                $("#ip_userName").attr("readonly","readonly");
+                var managerId = getUrlParam("id");
                 if(managerId!=null && managerId!="")
                 {
-                    LoadCompanyInfo(companyId);
+                    LoadManagerInfo(managerId);
                 }
                 $("#hid_managerId").val(managerId);
                 $("#hid_actionType").val("1");
@@ -170,12 +172,14 @@
             }
         }
 
-        //加载公司信息
-        function LoadCompanyInfo(companyId){
-            GetCompanyInfo(companyId,function(result){
+        //加载管理员信息
+        function LoadManagerInfo(managerId){
+            GetManagerInfo(managerId,function(result){
                 if(result.code=="0"){
                     var managerInfo = result.data;
                      $("#hid_userName").val(managerInfo.userName);
+                     $("#ip_userName").val(managerInfo.userName);
+                     $("#ip_realName").val(managerInfo.realName);
                      $("#ip_realName").val(managerInfo.realName);
                      $("#ip_userPhone").val(managerInfo.tel);
                      $("#sel_Role").val(managerInfo.level);
@@ -220,7 +224,7 @@
         }
 
         function RediectManagerList(){
-            $("#iframe_DashBoard",parent.document).attr('src',"/Static/CompanyList.html");
+            $("#iframe_DashBoard",parent.document).attr('src',"/Static/ManagerList.html");
         }
 
         $(function(){

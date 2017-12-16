@@ -181,7 +181,7 @@
         	var buttonStr ='<div class="btn-group"><button class="btn-danger btn btn-xs" onclick="DeleteManager(\''+id+'\')">删除</button>';
         	//超级管理员才能编辑用户信息
         	if(localStorage.getItem("userid")=="14E1952B-F674-4EE9-BD18-D4EB2F71084B"){
-        		buttonStr += '<button class="btn-danger btn btn-xs" onclick="DeleteManager(\''+id+'\')">编辑</button>';
+        		buttonStr += '<button class="btn-primary btn btn-xs" onclick="UpdateManager(\''+id+'\')">编辑</button>';
         		buttonStr += '<button class="btn-danger btn btn-xs" onclick="ResetManagerPwd(\''+id+'\')">重置密码</button>';
         	}
         	buttonStr += '</div>';
@@ -190,6 +190,10 @@
 
         function AddManagerInfo(){
         	$("#iframe_DashBoard",parent.document).attr('src',"/Static/ManagerEdit.html?actionType=add");
+        }
+
+        function UpdateManager(id){
+        	$("#iframe_DashBoard",parent.document).attr('src',"/Static/ManagerEdit.html?actionType=edit&id="+id);
         }
 
 		//删除公司信息
