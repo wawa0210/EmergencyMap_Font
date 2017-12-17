@@ -5,15 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>齐齐哈尔市安全生产应急救援平台风险管控系统</title>
+    <title>管理员列表</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <!-- Data Tables -->
-    <link href="/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-    <link href="/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
-    <link href="/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+    <link href="/css/plugins/dataTables/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/css/plugins/dataTables/buttons.bootstrap.min.css" rel="stylesheet">
 
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
@@ -66,10 +65,15 @@
     <script src="/js/plugins/jeditable/jquery.jeditable.js"></script>
 
     <!-- Data Tables -->
-    <script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
+  	<script src="/js/plugins/dataTables/jquery.dataTables.min.js"></script>
     <script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
-    <script src="/js/plugins/dataTables/dataTables.responsive.js"></script>
-    <script src="/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+    <script src="/js/plugins/dataTables/dataTables.buttons.min.js"></script>
+    <script src="/js/plugins/dataTables/buttons.bootstrap.min.js"></script>
+    <script src="/js/plugins/dataTables/jszip.min.js"></script>
+    <script src="/js/plugins/dataTables/pdfmake.min.js"></script>
+    <script src="/js/plugins/dataTables/vfs_fonts.js"></script>
+    <script src="/js/plugins/dataTables/buttons.html5.min.js"></script>
+    <script src="/js/plugins/dataTables/buttons.print.min.js"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="/js/inspinia.js"></script>
@@ -89,6 +93,18 @@
             }
             /* Init DataTables */
             var oTable = $('#editable').DataTable({
+            	lengthChange: false,
+            	dom: 'Bfrtip',
+		       	buttons: [
+		       			{
+		       				'extend':'print',
+		       				'text':'打印'
+		       			},
+		       			{
+		       				'extend':'excel',
+		       				'text':'导出'
+		       			}
+		       		],
             	 language: {
 			        "sProcessing": "处理中...",
 			        "sLengthMenu": "显示 _MENU_ 项结果",
@@ -166,6 +182,7 @@
 			        }
 	            ]
             });
+             oTable.buttons().container().appendTo($('#editable_filter .col-sm-6:eq(0)'));
         });
 
        function GetPageMangerInfo(param,callback){
