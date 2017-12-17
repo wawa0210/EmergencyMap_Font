@@ -209,13 +209,23 @@
 
        //just some colors
        var colors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00"];
-       var fillcolors = ["red", "orange","yellow","blue"];
+       var fillcolors = ["red","yellow","blue","orange"];
 
        //绘制子级区划
        districtExplorer.renderSubFeatures(areaNode, function(feature, i) {
           var index = GetCountyRiskLevel(feature.properties.adcode);
           var fillColor = fillcolors[index-1];
           var strokeColor = colors[colors.length - 1 - i % colors.length];
+          var fillOpac =0.4;
+          if(index==2){
+            fillOpac=0.1;
+          }
+          else if(index == 4){
+             fillOpac=0.4
+          }
+          else if(index == 3){
+             fillOpac=0.5
+          }
           return {
              cursor: 'default',
              bubble: true,
@@ -223,7 +233,7 @@
              strokeOpacity: 1, //线透明度
              strokeWeight: 1, //线宽
              fillColor: fillColor, //填充色
-             fillOpacity: 0.35, //填充透明度
+             fillOpacity: fillOpac, //填充透明度
           };
        });
 
@@ -258,7 +268,7 @@
              for (var i = 0, len = result.data.length; i < len; i++) {
                 var companyInfo = result.data[i];
 
-                var labelColor = (companyInfo.riskLevel==1?"red":(companyInfo.riskLevel==2?"orange":(companyInfo.riskLevel==3?"yellow":"blue")));
+                var labelColor = (companyInfo.riskLevel==1?"red":(companyInfo.riskLevel==2?"beige":(companyInfo.riskLevel==3?"blue":"orange")));
                 var marker = new SimpleMarker({
                   iconTheme: iconTheme,
                   //使用内置的iconStyle
