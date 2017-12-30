@@ -278,8 +278,6 @@
                   showPositionPoint:true,
                   map: map,
                   position: [companyInfo.longitude,companyInfo.latitude],
-
-                  //Marker的label(见http://lbs.amap.com/api/javascript-api/reference/overlay/#Marker)
                   label: {
                       offset: new AMap.Pixel(27, 25)
                   }
@@ -295,8 +293,13 @@
                info.push("联系电话:"+(companyInfo.chiefSafeyPhone==null?"无":companyInfo.chiefSafeyPhone));
 
                 marker.content = info.join("<br>");
-                marker.on('mouseover', markerClick);
+                marker.extData = {
+                  "companyId": companyInfo.id,
+                  "companyName":companyInfo.companyName
+                };
+                marker.on('mouseover', markerOverClick);
                 marker.on('mouseout', markerOutClick);
+                marker.on('click', markerOneClick);
                 marker.emit('mouseover', {target: marker});
 
                 markers.push(marker);
@@ -307,12 +310,17 @@
           });
       }
     }
-    function markerClick(e) {
-                infoWindow.setContent(e.target.content);
-                infoWindow.open(map, e.target.getPosition());
+    function markerOverClick(e) {
+        infoWindow.setContent(e.target.content);
+        infoWindow.open(map, e.target.getPosition());
     }
     function markerOutClick(e) {
        infoWindow.close();
+    }
+
+    //标注点击事件
+    function markerOneClick(e){
+      CompanySelected(e.target.extData.companyId,e.target.extData.companyName)
     }
 
    SerachCompany();
@@ -363,7 +371,7 @@
          $('#ul_Company li').remove();
          for (var i = 0, len = result.data.length; i < len; i++) {
              var companyInfo = result.data[i];
-             $("#ul_Company").append("<li class='li_Company' onclick='CompanySelected(this)' value="+companyInfo.id+" adcode="+companyInfo.county+">"+companyInfo.companyName+"</li>");
+             $("#ul_Company").append("<li class='li_Company' onclick='CompanySelected(\""+companyInfo.id+"\",\""+companyInfo.companyName+"\")' value="+companyInfo.id+" adcode="+companyInfo.county+">"+companyInfo.companyName+"</li>");
           }
       }
   }
@@ -388,13 +396,11 @@
     }
 
     //企业选中事件
-   function CompanySelected(obj){
-          // $(".theme-config-box").removeClass("show");
-          // $("body",parent.document).toggleClass("mini-navbar");
-          // window.parent.SmoothlyMenu()
-         $.dialog.open("/Static/CompanyShowDetail.html?companyId="+$(obj).attr("value"), 
+   function CompanySelected(companyId,companyName){
+        debugger;
+         $.dialog.open("/Static/CompanyShowDetail.html?companyId="+companyId, 
               {
-                 title: obj.innerHTML, 
+                 title: companyName, 
                  lock: true, 
                  opacity: 0.5, 
                  width: 1000,
