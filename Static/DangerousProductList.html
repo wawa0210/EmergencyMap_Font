@@ -109,7 +109,8 @@
                 RediectCompanyList();
             }
             if(companyName!=null && companyName!=""){
-            	$("#h_companyTitle").html("企业危险源信息列表("+companyName+")")
+            	$("#h_companyTitle").html("企业危险源信息列表("+companyName+")");
+            	$("title").html("企业危险源信息列表("+companyName+")");
             }
             /* Init DataTables */
             var oTable = $('#editable').DataTable({
