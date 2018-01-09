@@ -154,13 +154,24 @@
 
         function EditManagerInfo(params,callback){
             var uri = '/accounts';
+            var userName =params.userName;
             params = JSON.stringify(params);
             if($("#hid_actionType").val()=="0"){
-                doPost(uri,params,function(res){
-                   if (callback) {
-                          callback(res);
-                      }
-                },"json");
+                GetManagerByName(userName,function(res){
+                    if(res.code==0){
+                        if(res.data!=null){
+                            alert("帐户名不能重复");
+                        }
+                        else{
+                             doPost(uri,params,function(res){
+                               if (callback) {
+                                      callback(res);
+                                  }
+                            },"json");
+                        }
+                    }
+
+                })
             }
             else{
                 //编辑

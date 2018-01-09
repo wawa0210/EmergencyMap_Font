@@ -45,6 +45,7 @@
                             <li class="active"><a  onclick="LoadMenu(0)">企业地图展示</a></li>
                             <li><a onclick="LoadMenu(1)">企业信息管理</a></li>
                             <li><a onclick="LoadMenu(2)" class="li_IsAuth">账号管理</a></li>
+                            <!-- <li><a onclick="LoadMenu(3)" class="li_IsAuth">角色管理</a></li> -->
                         </ul>
                     </li>
                 </ul>
@@ -155,6 +156,7 @@
                 case 0: url = "Dashboard.html"; break;
                 case 1: url = "/Static/CompanyList.html"; break;
                 case 2: url = "/Static/ManagerList.html"; break;
+                case 3: url = "/Static/RoleList.html"; break;
             }
             $("#iframe_DashBoard").height($(document).height()+50);
             $("#iframe_DashBoard").attr('src',url);
